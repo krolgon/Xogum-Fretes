@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xogum", "Xogum\Xogum.csproj", "{8EF678DF-36EF-44E9-9FC1-2D2124E81BDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{913708D6-3161-4827-8BE0-7953DCBD1773}"
+	ProjectSection(SolutionItems) = preProject
+		Xogum.AcessoBanco.Entity\packages.config = Xogum.AcessoBanco.Entity\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xogum.Dominio", "Xogum.Dominio\Xogum.Dominio.csproj", "{0372C764-DED0-49A6-8C99-8B1F09248CAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AcessoBanco", "AcessoBanco", "{360B1294-FBA2-481D-9247-45F6CA32882B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xogum.AcessoBanco.Entity", "Xogum.AcessoBanco.Entity\Xogum.AcessoBanco.Entity.csproj", "{EEAA01D5-5872-454A-8218-85BC963BA462}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comum.Entity", "Comum.Entity\Comum.Entity.csproj", "{150A3539-EBA0-4216-B812-49F9D3D39216}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EF678DF-36EF-44E9-9FC1-2D2124E81BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EF678DF-36EF-44E9-9FC1-2D2124E81BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EF678DF-36EF-44E9-9FC1-2D2124E81BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EF678DF-36EF-44E9-9FC1-2D2124E81BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0372C764-DED0-49A6-8C99-8B1F09248CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0372C764-DED0-49A6-8C99-8B1F09248CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0372C764-DED0-49A6-8C99-8B1F09248CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0372C764-DED0-49A6-8C99-8B1F09248CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEAA01D5-5872-454A-8218-85BC963BA462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEAA01D5-5872-454A-8218-85BC963BA462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEAA01D5-5872-454A-8218-85BC963BA462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEAA01D5-5872-454A-8218-85BC963BA462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{150A3539-EBA0-4216-B812-49F9D3D39216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{150A3539-EBA0-4216-B812-49F9D3D39216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{150A3539-EBA0-4216-B812-49F9D3D39216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{150A3539-EBA0-4216-B812-49F9D3D39216}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0372C764-DED0-49A6-8C99-8B1F09248CAA} = {913708D6-3161-4827-8BE0-7953DCBD1773}
+		{EEAA01D5-5872-454A-8218-85BC963BA462} = {360B1294-FBA2-481D-9247-45F6CA32882B}
+		{150A3539-EBA0-4216-B812-49F9D3D39216} = {360B1294-FBA2-481D-9247-45F6CA32882B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65564E8B-D14F-43A0-AE62-71298C5E8109}
+	EndGlobalSection
+EndGlobal

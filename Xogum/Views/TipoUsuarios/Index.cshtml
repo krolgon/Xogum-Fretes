@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Xogum.ViewModels.TiposUsuario.TiposUsuarioExibicaoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSystemPage.cshtml";
+}
+
+<div class="container">
+
+    <h2 class="text-center">Tipos de Usuários no Sistema</h2>
+
+    <p class="paragrafo-botao btn btn-default espaco">
+        @Html.ActionLink("Cadastrar Novo Tipo", "Create")
+    </p>
+    <table class="table table-hover">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th class="text-center">
+                Opções
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

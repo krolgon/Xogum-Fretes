@@ -1,0 +1,104 @@
+﻿.navbar-estilo {
+    background-color: #1F4C74;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 0%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+/*TELA HOME*/
+
+.header-site {
+    background-image: url(../Content/Imagens/img-home.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #ffffff;
+    padding-top: 30%;
+    padding-bottom: -32%;
+}
+
+.content-site {
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+hr {
+    border-color: #1F4C74;
+}
+
+.legendas {
+    color: #333333;
+    font-family: 'Glacial Indifference';
+    font-size: 20px;
+}
+
+.texto-descricao {
+    color: #333333;
+    font-family: 'Glacial Indifference';
+    font-size: 20px;
+}
+
+.img-site {
+    background-image: url(../Content/Imagens/mud.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #ffffff;
+    padding-top: 2%;
+    padding-bottom: 3.7%;
+}
+
+footer {
+    padding: 3% 5% 3% 5%;
+    background-color: #1F4C74;
+    color: #d6Dee5;
+}
+
+/*TELA DE LOGIN*/
+
+.formulario-login {
+    color: #424251;
+    font-family: 'Glacial Indifference';
+    padding: -2% 5% 4% 3%;
+    border-width: 10px;
+    border-color: black;
+    /*background-color:#333333;*/
+}
+
+.texto-descricao-2 {
+    color: #333333;
+    font-family: 'Glacial Indifference';
+    font-size: 15px;
+}
+
+/*Recuperação de Senha*/
+.img-site-2 {
+    background-image: url(../Content/Imagens/mud.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #ffffff;
+    padding-top: 7%;
+    padding-bottom: 10%;
+}
+
+/*Classes Gerais*/
+.espaco{
+    margin-bottom:5%;
+     margin-top:2%;
+}
+
+.paragrafo-botao{
+    text-decoration:none;
+    color:white;
+}
