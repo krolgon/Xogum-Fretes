@@ -20,9 +20,8 @@ namespace Xogum.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult TipoCadastro()
         {
-            ViewBag.Message = "Your application description page.";
 
             return View();
         }

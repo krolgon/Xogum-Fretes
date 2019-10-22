@@ -27,13 +27,19 @@
             </div>
             <div class="navbar-collapse collapse navbar-dark">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Entrar", "Login", "Home")</li>
+                    <li><a href="@Url.Action("TipoCadastro","Home")"><span class="	glyphicon glyphicon-user"></span> Cadastre-se</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right"> @if (User.Identity.IsAuthenticated)
-                {<li>@Html.ActionLink(User.Identity.Name + " - Sair", "Sair", "Home")</li> }
-            else
-            { <li><a href="@Url.Action("Login","Home")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>} </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(User.Identity.Name + " - Sair", "Sair", "Home")</li> }
+                    else
+                    {
+                        <li><a href="@Url.Action("Login","Home")"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index","Home")#sobre")><span class="glyphicon glyphicon-question-sign"></span> Sobre</a></li>
+                </ul>
             </div>
         </div>
     </div>
