@@ -18,6 +18,7 @@ namespace Xogum.Controllers
         private XogumDbContexto db = new XogumDbContexto();
 
         // GET: Usuarios
+        [Authorize]
         public ActionResult Index()
         {
             return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));

@@ -13,6 +13,7 @@ using Xogum.ViewModels.TiposUsuario;
 
 namespace Xogum.Controllers
 {
+    [Authorize]
     public class TipoUsuariosController : Controller
     {
         private XogumDbContexto db = new XogumDbContexto();
