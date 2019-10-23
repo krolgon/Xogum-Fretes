@@ -11,6 +11,8 @@ namespace Xogum.Dominio
         public int Id { get; set; }
         public string Cnh { get; set; }
         public string CertidaoCriminal { get; set; }
+        public string FotoComCnh { get; set; }
+        public string Localizacao { get; set; }
         public Boolean Status { get; set; }
         public DateTime DataCriacao { get; set; }
 

@@ -34,6 +34,7 @@ namespace Xogum.Controllers
         [HttpPost]
         public ActionResult Login(string email, string senha, string ReturnUrl)
         {
+            senha = Annotations.Hash.HashTexto(senha, "SHA512");
             Usuario usu = db.Usuarios.Where(t => t.Email == email && t.Senha == senha).ToList().FirstOrDefault();
             if (usu != null)
             {
