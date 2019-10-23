@@ -1,21 +1,36 @@
 ﻿
 @using (Html.BeginForm())
+{
 
-{@Html.AntiForgeryToken()
-<div class="form-group rx-form-group">
-    <div class="col-md-12 col-sm-12 form-group">
-        <i class="fa fa-envelope select"></i>
-        <input type="email" placeholder="E-mail" required="required" class="formcontrol" id="email" value="" name="email">
-        <br />
+@Html.AntiForgeryToken()
+<section class="img-site">
+    <div class="container">
+
+        <div class="col-md-4 col-md-offset-4">
+            <form>
+                <h2 class="text-center formulario-login">Login</h2>
+                <br />
+                <label class="col-md-offset-1 formulario-login">E-mail</label>
+                <input type="email" id="email" value="" name="email" required="required" placeholder="Digite seu email" class="form-control col-md-offset-1" />
+                <br />
+                <label class="col-md-offset-1 formulario-login">Senha</label>
+                <input type="password" required="required" placeholder="Digite sua senha" class="form-control col-md-offset-1" id="senha" value="" name="senha" />
+                <br />
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Entrar</button>
+                </div>
+            </form>
+            <br />
+            <div class="text-center">
+                <a href="@Url.Action("RecuperarSenha", "Home")" class="text-center texto-descricao-2">Esqueci a senha</a>
+                <br /><br />
+                <a href="@Url.Action("TipoCadastro", "Home")" class="text-center texto-descricao-2">Cadastre-se agora!</a>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
     </div>
-    <div class="col-md-12 col-sm-12 form-group">
-        <i class="fa fa-unlock-alt"></i>
-        <input type="password" placeholder="Senha" required="required" class="form-control" id="senha" value="" name="senha">
-        <br />
-    </div>
-</div>
-<div class="col-md-12 col-xs-12 form-group">
-    <button class="btn btn-default" type="submit">Acessar</button>
-</div>
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })}
+
+</section>
+
+}
 

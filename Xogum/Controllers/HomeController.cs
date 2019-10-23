@@ -37,10 +37,10 @@ namespace Xogum.Controllers
             Usuario usu = db.Usuarios.Where(t => t.Email == email && t.Senha == senha).ToList().FirstOrDefault();
             if (usu != null)
             {
-                string permissoes = "";
-                foreach (Usuario p in usu.Usuarios)
-                    permissoes += p.TipoUsuario.Descricao + ",";
-                permissoes = permissoes.Substring(0, permissoes.Length - 1);
+                string permissoes = usu.TipoUsuario.Descricao;
+                //foreach (Usuario p in usu.Usuarios)
+                //    permissoes += p.TipoUsuario.Descricao + ",";
+                //permissoes = permissoes.Substring(0, permissoes.Length - 1);
                 FormsAuthentication.SetAuthCookie(usu.Nome, false);
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, usu.Email, DateTime.Now, DateTime.Now.AddMinutes(30), false, permissoes);
                 string hash = FormsAuthentication.Encrypt(ticket);
@@ -48,7 +48,7 @@ namespace Xogum.Controllers
                 if (ticket.IsPersistent) cookie.Expires = ticket.Expiration;
                 Response.Cookies.Add(cookie);
                 if (String.IsNullOrEmpty(ReturnUrl))
-                    return RedirectToAction("Index", "Perfils");
+                    return RedirectToAction("Index", "Home");
                 else
                 {
                     var decodedUrl = Server.UrlDecode(ReturnUrl);
