@@ -24,6 +24,7 @@ namespace Xogum.Controllers
             return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
         }
 
+        [Authorize]
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
@@ -66,6 +67,7 @@ namespace Xogum.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -84,6 +86,7 @@ namespace Xogum.Controllers
         // POST: Usuarios/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Telefone,Cpf,Foto,TipoUsuarioId")] UsuarioViewModel viewModel)
@@ -100,6 +103,7 @@ namespace Xogum.Controllers
         }
 
         // GET: Usuarios/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +119,7 @@ namespace Xogum.Controllers
         }
 
         // POST: Usuarios/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -132,6 +137,12 @@ namespace Xogum.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Authorize]
+        public ActionResult HomeCliente()
+        {
+            return View();
         }
     }
 }

@@ -18,6 +18,6 @@ namespace Xogum.Dominio
 
         public virtual TipoUsuario TipoUsuario { get; set; }
         public int TipoUsuarioId { get; set; }
-        public IEnumerable<Usuario> Usuarios { get; set; }
+ 
     }
 }
