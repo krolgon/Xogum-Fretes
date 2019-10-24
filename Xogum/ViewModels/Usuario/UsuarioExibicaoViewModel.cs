@@ -23,6 +23,10 @@ namespace Xogum.ViewModels.Usuario
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 
+        [Display(Name = "Confirmar Senha")]
+        [DataType(DataType.Password)]
+        public string ConfirmaSenha { get; set; }
+
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Telefone")]
         public string Telefone { get; set; }

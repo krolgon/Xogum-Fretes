@@ -43,7 +43,8 @@ namespace Xogum.Controllers
                 //    permissoes += p.TipoUsuario.Descricao + ",";
                 //permissoes = permissoes.Substring(0, permissoes.Length - 1);
                 FormsAuthentication.SetAuthCookie(usu.Nome, false);
-                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, usu.Email, DateTime.Now, DateTime.Now.AddMinutes(30), false, permissoes);
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, usu.Email, 
+                    DateTime.Now, DateTime.Now.AddMinutes(30), false, permissoes);
                 string hash = FormsAuthentication.Encrypt(ticket);
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
                 if (ticket.IsPersistent) cookie.Expires = ticket.Expiration;

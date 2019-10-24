@@ -52,7 +52,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,Telefone,Cpf,Foto,TipoUsuarioId")] UsuarioViewModel viewModel)
+        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,ConfirmaSenha,Telefone,Cpf,Foto")] UsuarioViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
