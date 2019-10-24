@@ -46,16 +46,16 @@ namespace Xogum.ViewModels.Motorista
         public string Foto { get; set; }
 
 
-        /*Veiculo*/
+        /*Motorista*/
         
         [Display(Name ="Identificador")]
         public int Id { get; set; }
 
-        [Display(Name = "Foto CNH")]
+        [Display(Name = "CNH(Foto)")]
         [Required(ErrorMessage = "A foto da CNH é um campo obrigatório")]
         public string Cnh { get; set; }
 
-        [Display(Name = "Foto Certidão Criminal")]
+        [Display(Name = "CND(Foto)")]
         [Required(ErrorMessage = "A foto da certidão criminal é um campo obrigatório")]
         public string CertidaoCriminal { get; set; }
 
@@ -70,7 +70,7 @@ namespace Xogum.ViewModels.Motorista
 
         /*Veículo*/
 
-        [Display(Name = "Placa do Veículo")]
+        [Display(Name = "Placa")]
         [Required(ErrorMessage = "Placa é um campo obrigatório")]
         [MaxLength(7, ErrorMessage = "O máximo são 7 caracteres")]
         [MinLength(7, ErrorMessage = "O mínimo são 7 caracteres")]
@@ -80,10 +80,6 @@ namespace Xogum.ViewModels.Motorista
         [Required(ErrorMessage ="O campo CRLV é obrigatório")]
         public string Crlv { get; set; }
 
-        [Display(Name = "Renavan")]
-        [Required(ErrorMessage = "O campo Renavan é obrigatório")]
-        public string Renavan { get; set; }
-
         [Display(Name = "Modelo")]
         [Required(ErrorMessage = "O campo modelo é obrigatório")]
         public string Modelo { get; set; }
@@ -92,13 +88,16 @@ namespace Xogum.ViewModels.Motorista
         [Required(ErrorMessage = "O campo cor é obrigatório")]
         public string Cor { get; set; }
 
-        [Display(Name = "Chassi")]
-        [Required(ErrorMessage = "O campo chassi é obrigatório")]
-        public string Chassi { get; set; }
-
-        [Display(Name = "Foto do Veículo")]
+        [Display(Name = "Veículo(Foto)")]
         [Required(ErrorMessage = "O campo foto do veículo é obrigatório")]
         public string FotoVeiculo { get; set; }
+
+        [Display(Name = "Foto com CNH")]
+        [Required(ErrorMessage = "O campo foto é obrigatório")]
+        public string FotoComCnh { get; set; }
+
+        [Display(Name = "Localização")]
+        public string Localizacao { get; set; }
 
         [Display(Name = "Status")]
         [Required(ErrorMessage = "O campo status é obrigatório")]

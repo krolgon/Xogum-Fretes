@@ -13,7 +13,7 @@ namespace Xogum.ViewModels.Usuario
         [Display(Name = "Identificador")]
         public int Id { get; set; }
 
-        [Display(Name = "Nome do Usuário")]
+        [Display(Name = "Nome")]
         [Required(ErrorMessage ="O nome é um campo obrigatório")]
         [MaxLength(150, ErrorMessage ="O máximo são 150 caracteres")]
         [MinLength(4, ErrorMessage ="O número minímo de caracteres é 4")]

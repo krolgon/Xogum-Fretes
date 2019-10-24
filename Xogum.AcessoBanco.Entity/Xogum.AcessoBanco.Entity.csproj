@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201910202332026_MigracaoSenhaCaracteres.designer.cs">
       <DependentUpon>201910202332026_MigracaoSenhaCaracteres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910232245169_MudancaTblMotorista.cs" />
+    <Compile Include="Migrations\201910232245169_MudancaTblMotorista.designer.cs">
+      <DependentUpon>201910232245169_MudancaTblMotorista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeConfiguration\MotoristaTypeConfiguration.cs" />
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910202332026_MigracaoSenhaCaracteres.resx">
       <DependentUpon>201910202332026_MigracaoSenhaCaracteres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910232245169_MudancaTblMotorista.resx">
+      <DependentUpon>201910232245169_MudancaTblMotorista.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

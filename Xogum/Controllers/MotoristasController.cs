@@ -69,21 +69,21 @@ namespace Xogum.Controllers
                 motorista.CertidaoCriminal = viewModel.CertidaoCriminal;
                 motorista.Status = false;
                 motorista.DataCriacao = DateTime.Now;
+                motorista.FotoComCnh = viewModel.FotoComCnh;
+                motorista.Localizacao = "-";
                 db.Motoristas.Add(motorista);
 
                 Veiculo veiculo = new Veiculo();
                 veiculo.Placa = viewModel.Placa;
                 veiculo.Crlv = viewModel.Crlv;
-                veiculo.Renavan = viewModel.Renavan;
                 veiculo.Modelo = viewModel.Modelo;
                 veiculo.Cor = viewModel.Cor;
-                veiculo.Chassi = viewModel.Chassi;
                 veiculo.Foto = viewModel.FotoVeiculo;
                 veiculo.Status = false;
                 veiculo.DataCriacao = DateTime.Now;
                 db.Veiculos.Add(veiculo);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             return View(viewModel);
         }

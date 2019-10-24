@@ -21,6 +21,12 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
             Property(p => p.CertidaoCriminal)
                 .IsRequired()
                 .HasColumnName("MOT_CERTIDAO_CRIMINAL");
+            Property(p => p.Localizacao)
+                .IsRequired()
+                .HasColumnName("MOT_LOCALIZACAO");
+            Property(p => p.FotoComCnh)
+                .IsRequired()
+                .HasColumnName("MOT_FOTO_CNH");
             Property(p => p.Status)
                 .IsRequired()
                 .HasColumnName("MOT_STATUS");

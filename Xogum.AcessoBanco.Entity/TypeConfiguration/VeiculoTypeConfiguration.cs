@@ -22,9 +22,6 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
             Property(p => p.Crlv)
                 .IsRequired()
                 .HasColumnName("VEI_CRLV");
-            Property(p => p.Renavan)
-                .IsRequired()
-                .HasColumnName("VEI_RENAVAM");
             Property(p => p.Modelo)
                 .IsRequired()
                 .HasColumnName("VEI_MODELO");
@@ -32,9 +29,6 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .IsRequired()
                 .HasMaxLength(25)
                 .HasColumnName("VEI_COR");
-            Property(p => p.Chassi)
-                .IsRequired()
-                .HasColumnName("VEI_CHASSI");
             Property(p => p.Foto)
                 .IsRequired()
                 .HasColumnName("VEI_FOTO");
