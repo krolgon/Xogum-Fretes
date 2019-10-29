@@ -36,7 +36,7 @@ namespace Xogum.ViewModels.Usuario
 
         [Display(Name = "Foto")]
         public string Foto { get; set; }
-
+        
         public virtual TipoUsuario TipoUsuario { get; set; }
         public int TipoUsuarioId { get; set; }
     }

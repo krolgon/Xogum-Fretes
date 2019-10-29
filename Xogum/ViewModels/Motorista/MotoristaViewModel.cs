@@ -47,7 +47,7 @@ namespace Xogum.ViewModels.Motorista
 
 
         /*Motorista*/
-        
+
         [Display(Name ="Identificador")]
         public int Id { get; set; }
 
