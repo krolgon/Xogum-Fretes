@@ -35,6 +35,7 @@ namespace Xogum.ViewModels.Usuario
         [Required]
         [DataType(DataType.Password)]
         [Compare("Senha", ErrorMessage = "As senhas não são iguais")]
+        [Display(Name ="Confirmar Senha")]
         public string ConfirmaSenha { get; set; }
 
         [Display(Name ="Telefone")]

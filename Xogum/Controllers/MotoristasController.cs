@@ -87,15 +87,7 @@ namespace Xogum.Controllers
             }
             return View(viewModel);
         }
-
-        // GET: Motoristas/Create
-        public ActionResult Create()
-        {
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome");
-            return View();
-        }
-
-        
+     
         // GET: Motoristas/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -117,10 +109,11 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Cnh,CertidaoCriminal,Status,DataCriacao,UsuarioId")] Motorista motorista)
+        public ActionResult Edit([Bind(Include = "Id,Cnh,CertidaoCriminal,Status,Cnh,UsuarioId")] Motorista motorista)
         {
             if (ModelState.IsValid)
             {
+                motorista.DataCriacao = DateTime.Now;
                 db.Entry(motorista).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
