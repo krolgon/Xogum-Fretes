@@ -18,13 +18,13 @@ namespace Xogum.Controllers
         private XogumDbContexto db = new XogumDbContexto();
 
         // GET: Usuarios
-        [Authorize]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Cliente")]
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
@@ -61,13 +61,13 @@ namespace Xogum.Controllers
                 usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("HomeCliente","Usuarios");
             }
 
             return View(viewModel);
         }
 
-        [Authorize]
+        //[Authorize(Roles = "Cliente")]
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -86,7 +86,7 @@ namespace Xogum.Controllers
         // POST: Usuarios/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        //[Authorize(Roles = "Cliente")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Telefone,Cpf,Foto,TipoUsuarioId")] UsuarioViewModel viewModel)
@@ -103,7 +103,7 @@ namespace Xogum.Controllers
         }
 
         // GET: Usuarios/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,7 +119,7 @@ namespace Xogum.Controllers
         }
 
         // POST: Usuarios/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -139,8 +139,18 @@ namespace Xogum.Controllers
             base.Dispose(disposing);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
+        {
+            return View();
+        }
+
+
+        /*============================================================================================*/
+        /*===================================ADMINISTRADOR============================================*/
+        /*============================================================================================*/
+
+        public ActionResult HomeAdministrador()
         {
             return View();
         }
