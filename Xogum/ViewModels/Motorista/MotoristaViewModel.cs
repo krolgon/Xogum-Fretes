@@ -52,11 +52,11 @@ namespace Xogum.ViewModels.Motorista
         public int Id { get; set; }
 
         [Display(Name = "CNH(Foto)")]
-        [Required(ErrorMessage = "A foto da CNH é um campo obrigatório")]
+        //[Required(ErrorMessage = "A foto da CNH é um campo obrigatório")]
         public string Cnh { get; set; }
 
         [Display(Name = "CND(Foto)")]
-        [Required(ErrorMessage = "A foto da certidão criminal é um campo obrigatório")]
+        //[Required(ErrorMessage = "A foto da certidão criminal é um campo obrigatório")]
         public string CertidaoCriminal { get; set; }
 
         [Display(Name ="Status")]
@@ -76,8 +76,8 @@ namespace Xogum.ViewModels.Motorista
         [MinLength(7, ErrorMessage = "O mínimo são 7 caracteres")]
         public string Placa { get; set; }
 
-        [Display(Name ="CRLV")]
-        [Required(ErrorMessage ="O campo CRLV é obrigatório")]
+        [Display(Name = "CRLV")]
+        //[Required(ErrorMessage = "O campo CRLV é obrigatório")]
         public string Crlv { get; set; }
 
         [Display(Name = "Modelo")]
@@ -89,11 +89,11 @@ namespace Xogum.ViewModels.Motorista
         public string Cor { get; set; }
 
         [Display(Name = "Veículo(Foto)")]
-        [Required(ErrorMessage = "O campo foto do veículo é obrigatório")]
+        //[Required(ErrorMessage = "O campo foto do veículo é obrigatório")]
         public string FotoVeiculo { get; set; }
 
         [Display(Name = "Foto com CNH")]
-        [Required(ErrorMessage = "O campo foto é obrigatório")]
+        //[Required(ErrorMessage = "O campo foto é obrigatório")]
         public string FotoComCnh { get; set; }
 
         [Display(Name = "Localização")]

@@ -3,8 +3,7 @@
 
 
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Cadastro", "Motoristas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -50,12 +49,11 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                            <input type="file" name="arqFoto" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <div class="row">
                 <div class="col-md-6">
@@ -83,8 +81,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.FotoComCnh, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.FotoComCnh, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.FotoComCnh, "", new { @class = "text-danger" })
+                            <input type="file" name="arqFotoComCnh" />
                         </div>
                     </div>
                 </div>
@@ -92,8 +89,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.CertidaoCriminal, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.CertidaoCriminal, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CertidaoCriminal, "", new { @class = "text-danger" })
+                            <input type="file" name="arqCriminal" />
                         </div>
                     </div>
                 </div>
@@ -104,12 +100,11 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Cnh, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Cnh, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Cnh, "", new { @class = "text-danger" })
+                            <input type="file" name="arqCnh" />
                         </div>
                     </div>
                 </div>
-               
+
             </div>
 
             <h4 class="text-center espaco-baixo">Informações do Veículo</h4>
@@ -149,8 +144,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Crlv, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Crlv, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Crlv, "", new { @class = "text-danger" })
+                            <input type="file" name="arqCrlv" />
                         </div>
                     </div>
                 </div>
@@ -161,8 +155,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.FotoVeiculo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.FotoVeiculo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.FotoVeiculo, "", new { @class = "text-danger" })
+                            <input type="file" name="arqVeiculo" />
                         </div>
                     </div>
                 </div>
@@ -170,7 +163,7 @@
 
             <div class="form-group text-center espaco">
                 <div>
-                    <input type="submit" value="FInalizar Cadastro" class="btn btn-success" />
+                    <input type="submit" value="Finalizar Cadastro" class="btn btn-success" />
                 </div>
             </div>
         </div>

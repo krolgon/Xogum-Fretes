@@ -14,6 +14,7 @@ namespace Xogum.Dominio
         public string Senha { get; set; }
         public string Telefone { get; set; }
         public string Cpf { get; set; }
+
         public string Foto { get; set; }
 
         public virtual TipoUsuario TipoUsuario { get; set; }
