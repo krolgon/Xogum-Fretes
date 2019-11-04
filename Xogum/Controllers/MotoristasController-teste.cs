@@ -27,6 +27,13 @@ namespace Xogum.Controllers
             return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motorista.ToList()));
         }
 
+        public ActionResult Teste()
+        {
+            var motorista = db.Motoristas.Include(m => m.Usuario);
+            //return View(motorista.ToList());
+            return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motorista.ToList()));
+        }
+
         // GET: Motoristas/Details/5
         public ActionResult Details(int? id)
         {
@@ -165,13 +172,10 @@ namespace Xogum.Controllers
             base.Dispose(disposing);
         }
 
-        //LISTAR MOTORISTAS INATIVOS
         public ActionResult MotoristasStatus()
         {
-            var motoristasStatus = db.Motoristas
-                .Include(m => m.Usuario)
-                .Where(m => m.Status == false);
-            return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motoristasStatus.ToList()));
+            var motoristasStatus = db.Motoristas.Where(m => m.Status == false);
+            return View(motoristasStatus.ToList());
         }
 
         // ALTERAÇÃO DE STATUS DO MOTORISTAS
@@ -181,14 +185,13 @@ namespace Xogum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Motorista motorista = db.Motoristas
-                .Find(id);
-                
+            Motorista motorista = db.Motoristas.Find(id);
             if (motorista == null)
             {
                 return HttpNotFound();
             }
-            return View(Mapper.Map<Motorista, MotoristaExibicaoViewModel>(motorista));
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", motorista.UsuarioId);
+            return View(motorista);
         }
 
         [HttpPost]

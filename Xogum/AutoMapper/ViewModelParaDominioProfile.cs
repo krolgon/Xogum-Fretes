@@ -20,7 +20,8 @@ namespace Xogum.AutoMapper
             CreateMap<UsuarioExibicaoViewModel, Usuario>();
             CreateMap<UsuarioViewModel, Usuario>();
 
-            CreateMap<MotoristaViewModel, Usuario>();
+            CreateMap<MotoristaViewModel, Motorista>();
+            CreateMap<MotoristaExibicaoViewModel, Motorista>();
             //Mapper.CreateMap<Album, AlbumIndexViewModel>();
         }
     }

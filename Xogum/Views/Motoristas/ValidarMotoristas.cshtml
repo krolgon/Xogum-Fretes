@@ -1,0 +1,129 @@
+﻿@model Xogum.ViewModels.Motorista.MotoristaExibicaoViewModel
+
+@{
+    ViewBag.Title = "ValidarMotoristas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ValidarMotoristas</h2>
+
+<div>
+    <h4>MotoristaExibicaoViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario.Nome)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cnh)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cnh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertidaoCriminal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertidaoCriminal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCriacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataCriacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Crlv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Crlv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FotoVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FotoVeiculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FotoComCnh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FotoComCnh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localizacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localizacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusVeiculo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataCriacaoVeiculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataCriacaoVeiculo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

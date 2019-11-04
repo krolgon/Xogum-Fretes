@@ -32,6 +32,8 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .HasColumnName("MOT_STATUS");
             Property(p => p.DataCriacao)
                 .HasColumnName("MOT_DATA_CRIACAO");
+            Property(p => p.Avaliacao)
+                .HasColumnName("MOT_AVALIACAO");
         }
 
         protected override void ConfigurarChavePrimaria()

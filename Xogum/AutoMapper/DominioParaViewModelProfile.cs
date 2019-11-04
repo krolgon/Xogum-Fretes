@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Xogum.Dominio;
+using Xogum.ViewModels.Motorista;
 using Xogum.ViewModels.TiposUsuario;
 using Xogum.ViewModels.Usuario;
 
@@ -18,6 +19,9 @@ namespace Xogum.AutoMapper
 
             CreateMap<Usuario, UsuarioExibicaoViewModel>();
             CreateMap<Usuario, UsuarioViewModel>();
+
+            CreateMap<Motorista, MotoristaExibicaoViewModel>();
+            CreateMap<Motorista, MotoristaViewModel >();
             //Mapper.CreateMap<Album, AlbumIndexViewModel>();
         }
     }
