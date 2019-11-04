@@ -146,6 +146,7 @@
     <Compile Include="Annotations\CustomValidationCPFAttribute.cs" />
     <Compile Include="Annotations\Funcoes.cs" />
     <Compile Include="Annotations\Hash.cs" />
+    <Compile Include="Annotations\Upload.cs" />
     <Compile Include="Annotations\Util.cs" />
     <Compile Include="App_Start\AutoMapConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

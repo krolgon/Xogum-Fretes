@@ -48,6 +48,7 @@ namespace Xogum.ViewModels.Usuario
         [CustomValidationCPF(ErrorMessage = "CPF inválido")]
         public string Cpf { get; set; }
 
+        [MaxLength(100)]
         [Display(Name ="Foto")]
         public string Foto { get; set; }
 

@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Xogum.AcessoBanco.Entity.Contexto;
+using Xogum.Annotations;
 using Xogum.Dominio;
 using Xogum.ViewModels.Usuario;
 
@@ -52,18 +54,43 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Email,Senha,ConfirmaSenha,Telefone,Cpf,Foto")] UsuarioViewModel viewModel)
+        public ActionResult Create(UsuarioViewModel viewModel, HttpPostedFileBase arq)
         {
+            string valor = "";
             if (ModelState.IsValid)
             {
-                Usuario usuario = Mapper.Map<UsuarioViewModel, Usuario>(viewModel);
-                usuario.TipoUsuarioId = 2;
-                usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
-                db.Usuarios.Add(usuario);
-                db.SaveChanges();
-                return RedirectToAction("HomeCliente","Usuarios");
-            }
+                if (arq != null)
+                {
+                    Upload.CriarDiretorio();
+                    string nomearq = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(arq.FileName);
+                    valor = Upload.UploadArquivo(arq, nomearq);
+                    if (valor == "Sucesso")
+                    {
+                        Usuario usuario = Mapper.Map<UsuarioViewModel, Usuario>(viewModel);
+                        usuario.Foto = nomearq;
+                        usuario.TipoUsuarioId = 2;
+                        usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
+                        db.Usuarios.Add(usuario);
+                        db.SaveChanges();
+                        return RedirectToAction("HomeCliente", "Usuarios");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", valor);
+                        return View(viewModel);
+                    }
+                }
+                else
+                {
+                    Usuario usuario = Mapper.Map<UsuarioViewModel, Usuario>(viewModel);
+                    usuario.Foto = "Sem foto";
+                    db.SaveChanges();
 
+                    return RedirectToAction("Index");
+                }
+
+                
+            }
             return View(viewModel);
         }
 
