@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\CustomValidationCPFAttribute.cs" />
+    <Compile Include="Annotations\Funcoes.cs" />
     <Compile Include="Annotations\Hash.cs" />
     <Compile Include="Annotations\Upload.cs" />
     <Compile Include="Annotations\Util.cs" />
@@ -162,6 +163,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Motorista\MotoristaExibicaoViewModel.cs" />
     <Compile Include="ViewModels\Motorista\MotoristaViewModel.cs" />
     <Compile Include="ViewModels\TiposUsuario\TiposUsuarioExibicaoViewModel.cs" />
     <Compile Include="ViewModels\TiposUsuario\TiposUsuarioViewModel.cs" />
@@ -351,7 +353,6 @@
     <Content Include="Views\Motoristas\Delete.cshtml" />
     <Content Include="Views\Motoristas\Details.cshtml" />
     <Content Include="Views\Motoristas\Edit.cshtml" />
-    <Content Include="Views\Motoristas\Index.cshtml" />
     <Content Include="Views\Motoristas\Cadastro.cshtml" />
     <Content Include="Views\Veiculoes\Create.cshtml" />
     <Content Include="Views\Veiculoes\Delete.cshtml" />
@@ -366,6 +367,10 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Home\Email.cshtml" />
+    <Content Include="Views\Motoristas\MotoristasStatus.cshtml" />
+    <Content Include="Views\Motoristas\Index.cshtml" />
+    <Content Include="Views\Motoristas\ValidarMotoristas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Xogum.Dominio.Motorista>
+﻿@model IEnumerable<Xogum.ViewModels.Motorista.MotoristaExibicaoViewModel>
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -12,7 +13,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nome)
+            @Html.DisplayNameFor(model => model.usuario.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.Senha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.Cpf)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario.Foto)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Cnh)
@@ -26,13 +42,55 @@
         <th>
             @Html.DisplayNameFor(model => model.DataCriacao)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Crlv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoVeiculo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FotoComCnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Localizacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusVeiculo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCriacaoVeiculo)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+            @Html.DisplayFor(modelItem => item.usuario.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.Senha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.Cpf)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario.Foto)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cnh)
@@ -45,6 +103,33 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DataCriacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Placa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Crlv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modelo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FotoVeiculo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FotoComCnh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Localizacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusVeiculo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataCriacaoVeiculo)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

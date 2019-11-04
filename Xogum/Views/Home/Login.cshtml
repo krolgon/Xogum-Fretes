@@ -22,11 +22,12 @@
             </form>
             <br />
             <div class="text-center">
-                <a href="@Url.Action("RecuperarSenha", "Home")" class="text-center texto-descricao-2">Esqueci a senha</a>
+                <a href="@Url.Action("Email", "Home")" class="text-center texto-descricao-2">Esqueci a senha</a>
                 <br /><br />
                 <a href="@Url.Action("TipoCadastro", "Home")" class="text-center texto-descricao-2">Cadastre-se agora!</a>
             </div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <br/>
+            @Html.ValidationSummary(true, "", new { @class = "col-md-offset-2 alert alert-danger text-center" })
         </div>
     </div>
 
