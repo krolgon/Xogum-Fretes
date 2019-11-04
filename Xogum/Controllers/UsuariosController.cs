@@ -166,7 +166,7 @@ namespace Xogum.Controllers
             base.Dispose(disposing);
         }
 
-        [Authorize(Roles = "Cliente")]
+        //[Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
         {
             return View();
