@@ -2,6 +2,47 @@
     ViewBag.Title = "Home Page";
 }
 
+<script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    const platform = new H.service.Platform({
+        "app_id": "MYjqN5xms90ufxaDGBGa",
+        "app_code": "q_elI5myVl5U1fdw7ljnDng2unbifJRBGtOTChlKsFQ"
+    });
+
+    const map = new H.Map(
+        document.getElementById("map"),
+        platform.createDefaultLayers().normal.map,
+        {
+            zoom: 10,
+            center: { lat: 37, lng: -121 }
+        }
+    );
+    const mapEvents = new H.mapevents.MapEvents(map);
+    const behavior = new H.mapevents.Behavior(mapEvents);
+    const geocoderService = platform.getGeocodingService();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            map.setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            });
+            geocoderService.reverseGeocode({
+                mode: "retrieveAddress",
+                maxresults: 1,
+                prox: position.coords.latitude + "," + position.coords.longitude
+            },
+                success => {
+                    console.log(success.Response);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        })
+    }
+</script>
 <section class="header-site"></section>
 <br />
 <section class="content-site container">
@@ -50,7 +91,9 @@
         <div class="row">
             <div class="col-xs-12 text-center">
 
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/UOxkGD8qRB4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div id="map" style="width: 560; height: 315"></div>
+
+                /<iframe width="560" height="315" src="https://www.youtube.com/embed/UOxkGD8qRB4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <br /><br />
 
                 <p class="lead text-center legendas">A Xogum Fretes é uma plataforma que promove o encontro entre Transportador e Cliente de forma rápida e fácil</p>

@@ -6,3 +6,96 @@
 
 <h2>HomeCliente</h2>
 
+
+<script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<div id="map" style="width: 100px; height: 100px"></div>
+<script>
+    const platform = new H.service.Platform({
+        "app_id": "MYjqN5xms90ufxaDGBGa",
+        "app_code": "q_elI5myVl5U1fdw7ljnDng2unbifJRBGtOTChlKsFQ"
+    });
+
+    const map = new H.Map(
+        document.getElementById("map"),
+        platform.createDefaultLayers().normal.map,
+        {
+            zoom: 12,
+            center: { lat: 37, lng: -121 }
+        }
+    );
+    const mapEvents = new H.mapevents.MapEvents(map);
+    const behavior = new H.mapevents.Behavior(mapEvents);
+    const geocoderService = platform.getGeocodingService();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            map.setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            });
+            geocoderService.reverseGeocode(
+                {
+                    mode: "retrieveAddress",
+                    maxresults: 1,
+                    prox: position.coords.latitude + ","
+                        + position.coords.longitude
+                },
+                success => {
+                    console.log(success.Response);
+                },
+                error => {
+                    console.error(error);
+                }
+            );
+        })
+    }
+
+    //// Instantiate a map and platform object:
+    //var platform = new H.service.Platform({
+    //    'apikey': '{YOUR_APIKEY}'
+    //});
+    //// Retrieve the target element for the map:
+    //var targetElement = document.getElementById('mapContainer');
+
+    //// Get default map types from the platform object:
+    //var defaultLayers = platform.createDefaultLayers();
+
+    //// Instantiate the map:
+    //var map = new H.Map(
+    //    document.getElementById('mapContainer'),
+    //    defaultLayers.vector.normal.map,
+    //    {
+    //        zoom: 10,
+    //        center: { lat: 52.51, lng: 13.4 }
+    //    });
+
+    //// Create the parameters for the landmark search request:
+    //var landmarkSearchParameters = {
+    //    searchText: 'ORD'
+    //};
+
+    //// Define a callback function to process the search response:
+    //function onSuccess(result) {
+    //    var location = result.Response.View[0].Result[0].Place.Locations[0];
+
+    //    // Create an info bubble at the retrieved location with the
+    //    // location's name as contents:
+    //    ui.addBubble(new H.ui.InfoBubble({
+    //        lat: location.DisplayPosition.Latitude,
+    //        lng: location.DisplayPosition.Longitude
+    //    }, { content: location.Name }));
+    //};
+
+
+    //// Get an instance of the geocoding service:
+    //var geocoder = platform.getGeocodingService();
+
+    //// Call the geocode method with the search parameters,
+    //// the callback and an error callback function (called if a
+    //// communication error occurs):
+    //geocoder.search(landmarkSearchParameters, onSuccess, function (e) {
+    //    alert(e);
+    //});
+</script>
+
