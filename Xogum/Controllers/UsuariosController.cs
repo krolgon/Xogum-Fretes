@@ -84,12 +84,17 @@ namespace Xogum.Controllers
                 {
                     Usuario usuario = Mapper.Map<UsuarioViewModel, Usuario>(viewModel);
                     usuario.Foto = "Sem foto";
-                    db.SaveChanges();
-
-                    return RedirectToAction("Index");
+                    usuario.TipoUsuarioId = 2;
+                    usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
+                    db.Usuarios.Add(usuario);
+                    if (db.SaveChanges() > 0)
+                    {
+                        ViewBag.Message = "Your app description page.";
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
 
-                
+
             }
             return View(viewModel);
         }

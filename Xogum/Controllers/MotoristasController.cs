@@ -101,7 +101,6 @@ namespace Xogum.Controllers
                                         motorista.Status = false;
                                         motorista.DataCriacao = DateTime.Now;
                                         motorista.FotoComCnh = nomeFotoCnh;
-                                        motorista.Localizacao = "-";
                                         db.Motoristas.Add(motorista);
 
                                         Veiculo veiculo = new Veiculo();
@@ -142,9 +141,86 @@ namespace Xogum.Controllers
                         return View(viewModel);
                     }
                 }
-                else
+                else //Final If
                 {
-                    return View(viewModel);
+                    if (arqCnh != null)
+                    {
+                        string nomeCnh = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + Path.GetExtension(arqCnh.FileName);
+                        string repCnh = Upload.UploadArquivo(arqCnh, nomeCnh);
+                        if (arqCriminal != null)
+                        {
+                            string nomeCriminal = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + Path.GetExtension(arqCriminal.FileName);
+                            string repCriminal = Upload.UploadArquivo(arqCriminal, nomeCriminal);
+                            if (arqFotoComCnh != null)
+                            {
+                                string nomeFotoCnh = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + Path.GetExtension(arqFotoComCnh.FileName);
+                                string repFotoCnh = Upload.UploadArquivo(arqFotoComCnh, nomeFotoCnh);
+                                if (arqCrlv != null)
+                                {
+                                    string nomeCrlv = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + Path.GetExtension(arqCrlv.FileName);
+                                    string repCrlv = Upload.UploadArquivo(arqCrlv, nomeCrlv);
+                                    if (arqVeiculo != null)
+                                    {
+                                        string nomeVeiculo = DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + Path.GetExtension(arqVeiculo.FileName);
+                                        string repVeiculo = Upload.UploadArquivo(arqVeiculo, nomeVeiculo);
+                                        //valor = Upload.UploadMultArquivo(arqFoto, arqCnh, arqCriminal, arqFotoComCnh, arqCrlv, arqVeiculo,
+                                        //    nomeFoto, nomeCnh, nomeCriminal, nomeFotoCnh, nomeCrlv, nomeVeiculo);
+                                        Usuario usuario = new Usuario();
+                                        usuario.Id = viewModel.Id;
+                                        usuario.Nome = viewModel.Nome;
+                                        usuario.Email = viewModel.Email;
+                                        usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
+                                        usuario.Telefone = viewModel.Telefone;
+                                        usuario.Cpf = viewModel.Cpf;
+                                        usuario.Foto = "Sem foto";
+                                        usuario.TipoUsuarioId = 1;
+                                        db.Usuarios.Add(usuario);
+
+                                        Motorista motorista = new Motorista();
+                                        motorista.Cnh = nomeCnh;
+                                        motorista.CertidaoCriminal = nomeCriminal;
+                                        motorista.Status = false;
+                                        motorista.DataCriacao = DateTime.Now;
+                                        motorista.FotoComCnh = nomeFotoCnh;
+                                        db.Motoristas.Add(motorista);
+
+                                        Veiculo veiculo = new Veiculo();
+                                        veiculo.Placa = viewModel.Placa;
+                                        veiculo.Crlv = nomeCrlv;
+                                        veiculo.Modelo = viewModel.Modelo;
+                                        veiculo.Cor = viewModel.Cor;
+                                        veiculo.Foto = nomeVeiculo;
+                                        veiculo.Status = false;
+                                        veiculo.DataCriacao = DateTime.Now;
+                                        db.Veiculos.Add(veiculo);
+                                        db.SaveChanges();
+                                        return RedirectToAction("Login", "Home");
+                                    }
+                                    else
+                                    {
+                                        return View(viewModel);
+                                    }
+                                }
+                                else
+                                {
+                                    return View(viewModel);
+                                }
+                            }
+                            else
+                            {
+                                return View(viewModel);
+                            }
+                        }
+                        else
+                        {
+
+                            return View(viewModel);
+                        }
+                    }
+                    else
+                    {
+                        return View(viewModel);
+                    }
                 }
             }
             else
@@ -220,6 +296,48 @@ namespace Xogum.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //LISTAR MOTORISTAS INATIVOS
+        public ActionResult MotoristasStatus()
+        {
+            var motoristasStatus = db.Motoristas
+                .Include(m => m.Usuario)
+                .Where(m => m.Status == false);
+            return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motoristasStatus.ToList()));
+        }
+        // ALTERAÇÃO DE STATUS DO MOTORISTAS
+        public ActionResult ValidarMotoristas(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var x = db.Motoristas.Where(v => v.Id == id).ToList().FirstOrDefault();
+            //MotoristaExibicaoViewModel mv = new MotoristaExibicaoViewModel();
+            //mv.Cnh = x.Veiculos.FirstOrDefault().Placa;
+            return View(Mapper.Map<Motorista, MotoristaExibicaoViewModel>(x));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ValidarMotorista([Bind(Include = "Id,Cnh,CertidaoCriminal,Status,Cnh,Localizacao, UsuarioId ")] Motorista motorista)
+        {
+            if (ModelState.IsValid)
+            {
+                var loc = motorista.Usuario.Localizacao;
+                var foto = motorista.FotoComCnh;
+
+                db.Entry(motorista).State = EntityState.Modified;
+                motorista.Usuario.Localizacao = "-";
+                motorista.FotoComCnh = "foto";
+                motorista.DataCriacao = DateTime.Now;
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", motorista.UsuarioId);
+            return View(motorista);
         }
     }
 }

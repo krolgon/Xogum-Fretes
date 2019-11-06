@@ -38,6 +38,8 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
             Property(p => p.DataCriacao)
                 .IsRequired()
                 .HasColumnName("VEI_DATA_CRIACAO");
+            Property(p => p.Verificacao)
+                .HasColumnName("VEI_VERIFICACAO");
         }
 
         protected override void ConfigurarChavePrimaria()

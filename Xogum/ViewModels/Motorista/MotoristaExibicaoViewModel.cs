@@ -35,9 +35,18 @@ namespace Xogum.ViewModels.Motorista
         [Required]
         public DateTime DataCriacao { get; set; }
 
+        [Display(Name = "Foto com CNH")]
+        public string FotoComCnh { get; set; }
 
+        [Display(Name = "Localização")]
+        public string Localizacao { get; set; }
+
+        public ICollection<Veiculo> Veiculos { get; set; }
         /*Veículo*/
 
+    }
+    public class VeiculoViewModel
+    {
         [Display(Name = "Placa")]
         public string Placa { get; set; }
 
@@ -53,16 +62,11 @@ namespace Xogum.ViewModels.Motorista
         [Display(Name = "Veículo(Foto)")]
         public string FotoVeiculo { get; set; }
 
-        [Display(Name = "Foto com CNH")]
-        public string FotoComCnh { get; set; }
-
-        [Display(Name = "Localização")]
-        public string Localizacao { get; set; }
-
         [Display(Name = "Status")]
         public Boolean StatusVeiculo { get; set; }
 
         [Display(Name = "Data de Criação")]
         public DateTime DataCriacaoVeiculo { get; set; }
+
     }
 }
