@@ -1,101 +1,107 @@
-﻿
+﻿@model IEnumerable<Xogum.ViewModels.Motorista.MotoristaExibicaoViewModel>
+
 @{
     ViewBag.Title = "HomeCliente";
     Layout = "~/Views/Shared/_LayoutUsuario.cshtml";
 }
 
-<h2>HomeCliente</h2>
+@*<h2>HomeCliente</h2>*@
+<head>
 
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 
-<script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-<script src="http://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-<script src="http://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
-<div id="map" style="width: 100px; height: 100px"></div>
+</head>
+
 <script>
-    const platform = new H.service.Platform({
-        "app_id": "MYjqN5xms90ufxaDGBGa",
-        "app_code": "q_elI5myVl5U1fdw7ljnDng2unbifJRBGtOTChlKsFQ"
-    });
+    function CriarMapa() {
+        document.write("<div id='mapContainer' style='width: 80vw; height: 60vh'></div>");
+        // definição da chave da api para utilização
+        var platform = new H.service.Platform({
+            apikey: 'q_elI5myVl5U1fdw7ljnDng2unbifJRBGtOTChlKsFQ',
+            useHTTPS: true,
+            useCIT: true
+        });
+        // prepara a variavel de mapa para iniciar
+        var defaultLayers = platform.createDefaultLayers();
+        var mapContainer = document.getElementById('mapContainer');
+        // inicializa o mapa
+        var map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
+            zoom: 15,
+            center: { lat: 48.869145, lng: 2.314298 },
+            pixelRatio: window.devicePixelRatio || 1
+        });
+        // para ocupar o tamanho inteiro do container a ser colocado
+        window.addEventListener('resize', () => map.getViewPort().resize());
 
-    const map = new H.Map(
-        document.getElementById("map"),
-        platform.createDefaultLayers().normal.map,
-        {
-            zoom: 12,
-            center: { lat: 37, lng: -121 }
+        // gerador de geolocation pelo navegador
+
+        var geocoderService = platform.getGeocodingService();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition
+                (position => {
+                    map.setCenter({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    });
+                    geocoderService.reverseGeocode(
+                        {
+                            mode: "retrieveAddress",
+                            maxresults: 1,
+                            prox: position.coords.latitude + ","
+                                + position.coords.longitude
+                        },
+                        success => {
+                            var { latitude, longitude } = position.coords;
+                            document.getElementById('result').innerHTML = `${latitude} , ${longitude}`;
+
+                            var icon = new H.map.Icon(svgMarkup),
+                                coords = { lat: -22.786000, lng: -45.1911673 },
+                                marker = new H.map.Marker(coords, { icon: icon });
+                            map.addObject(marker);
+
+                            var icon = new H.map.Icon(svgMarkup),
+                                coords = { lat: -22.786000, lng: -45.1711673 },
+                                marker = new H.map.Marker(coords, { icon: icon });
+                            map.addObject(marker);
+                            //map.setCenter(coords);
+                        },
+                        error => {
+                            console.error(error);
+                        }
+                    );
+                })
         }
-    );
-    const mapEvents = new H.mapevents.MapEvents(map);
-    const behavior = new H.mapevents.Behavior(mapEvents);
-    const geocoderService = platform.getGeocodingService();
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            map.setCenter({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            });
-            geocoderService.reverseGeocode(
-                {
-                    mode: "retrieveAddress",
-                    maxresults: 1,
-                    prox: position.coords.latitude + ","
-                        + position.coords.longitude
-                },
-                success => {
-                    console.log(success.Response);
-                },
-                error => {
-                    console.error(error);
-                }
-            );
-        })
+        // cria o marker no mapa
+        var svgMarkup = '<svg width="24" height="24" ' +
+            'xmlns="http://www.w3.org/2000/svg">' +
+            '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
+            'height="22" /><text x="12" y="18" font-size="12pt" ' +
+            'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
+            'fill="white">H</text></svg>';
+        var icon = new H.map.Icon(svgMarkup),
+            coords = { lat: position.coords.latitude, lng: position.coords.longitude },
+            marker = new H.map.Marker(coords, { icon: icon });
+        map.addObject(marker);
     }
-
-    //// Instantiate a map and platform object:
-    //var platform = new H.service.Platform({
-    //    'apikey': '{YOUR_APIKEY}'
-    //});
-    //// Retrieve the target element for the map:
-    //var targetElement = document.getElementById('mapContainer');
-
-    //// Get default map types from the platform object:
-    //var defaultLayers = platform.createDefaultLayers();
-
-    //// Instantiate the map:
-    //var map = new H.Map(
-    //    document.getElementById('mapContainer'),
-    //    defaultLayers.vector.normal.map,
-    //    {
-    //        zoom: 10,
-    //        center: { lat: 52.51, lng: 13.4 }
-    //    });
-
-    //// Create the parameters for the landmark search request:
-    //var landmarkSearchParameters = {
-    //    searchText: 'ORD'
-    //};
-
-    //// Define a callback function to process the search response:
-    //function onSuccess(result) {
-    //    var location = result.Response.View[0].Result[0].Place.Locations[0];
-
-    //    // Create an info bubble at the retrieved location with the
-    //    // location's name as contents:
-    //    ui.addBubble(new H.ui.InfoBubble({
-    //        lat: location.DisplayPosition.Latitude,
-    //        lng: location.DisplayPosition.Longitude
-    //    }, { content: location.Name }));
-    //};
-
-
-    //// Get an instance of the geocoding service:
-    //var geocoder = platform.getGeocodingService();
-
-    //// Call the geocode method with the search parameters,
-    //// the callback and an error callback function (called if a
-    //// communication error occurs):
-    //geocoder.search(landmarkSearchParameters, onSuccess, function (e) {
-    //    alert(e);
-    //});
 </script>
 
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localizacao)
+            </td>
+        </tr>
+        }
+    </div>
+    <div class="row" style="margin-top:30px">
+        <script>CriarMapa();</script>
+        <label id="result">Result Label</label>
+    </div>
+</div>
