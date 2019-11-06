@@ -29,12 +29,18 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("USU_EMAIL");
+            Property(p => p.DataNascimento)
+                .HasColumnName("USU_DATA_NASCIMENTO");
             Property(p => p.Senha)
                 .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("USU_SENHA");
             Property(p => p.Foto)
                 .HasColumnName("USU_FOTO");
+            Property(p => p.Avaliacao)
+                .HasColumnName("USU_AVALIACAO");
+            Property(p => p.Localizacao)
+                .HasColumnName("USU_LOCALIZACAO");
         }
 
         protected override void ConfigurarChavePrimaria()

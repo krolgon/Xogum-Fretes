@@ -14,6 +14,9 @@ namespace Xogum.Dominio
         public string Senha { get; set; }
         public string Telefone { get; set; }
         public string Cpf { get; set; }
+        public string Localizacao { get; set; }
+        public int Avaliacao { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public string Foto { get; set; }
 

@@ -16,6 +16,7 @@ namespace Xogum.Dominio
         public string Foto { get; set; }
         public Boolean Status { get; set; }
         public DateTime DataCriacao { get; set; }
+        public Boolean Verificacao { get; set; }
 
         public virtual Motorista Motorista { get; set; }
         public int MotoristaId { get; set; }

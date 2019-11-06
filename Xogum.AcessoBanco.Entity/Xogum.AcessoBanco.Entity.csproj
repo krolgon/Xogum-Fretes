@@ -92,9 +92,9 @@
     <Compile Include="Migrations\201910232245169_MudancaTblMotorista.designer.cs">
       <DependentUpon>201910232245169_MudancaTblMotorista.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910310039180_MigracaoInicial1.cs" />
-    <Compile Include="Migrations\201910310039180_MigracaoInicial1.designer.cs">
-      <DependentUpon>201910310039180_MigracaoInicial1.cs</DependentUpon>
+    <Compile Include="Migrations\201911062254055_Alteração.cs" />
+    <Compile Include="Migrations\201911062254055_Alteração.designer.cs">
+      <DependentUpon>201911062254055_Alteração.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,8 +142,8 @@
     <EmbeddedResource Include="Migrations\201910232245169_MudancaTblMotorista.resx">
       <DependentUpon>201910232245169_MudancaTblMotorista.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910310039180_MigracaoInicial1.resx">
-      <DependentUpon>201910310039180_MigracaoInicial1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911062254055_Alteração.resx">
+      <DependentUpon>201911062254055_Alteração.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

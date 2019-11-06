@@ -1,129 +1,171 @@
 ﻿@model Xogum.ViewModels.Motorista.MotoristaExibicaoViewModel
 
 @{
-    ViewBag.Title = "ValidarMotoristas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ValidarMotoristas</h2>
+<div class="container">
+    <h2 class="text-center">Verificação de Cadastro de Motoristas</h2>
+    <br/>
 
-<div>
-    <h4>MotoristaExibicaoViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.usuario.Nome)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cnh)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.usuario.Nome)
-        </dt>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Cnh)
-        </dd>
+        <div class="form-horizontal">
+            <h4>Locais de Verificação de Autenticidade de Documentação</h4>
+            <ul>
+                <li>Para verificar a validade de uma CNH clique <a href="https://www.detran.sp.gov.br/wps/portal/portaldetran/cidadao/habilitacao/servicos/autenticacaoCNH/!ut/p/z1/pZHLDoIwEEU_qXdoo-2yIsijxIgi2I1hZZooujB-v8DORCvG2U1zznRyh1nWMNu1D3dq7-7atee-P9jZUZCKiEIU0lQEHZeGRCIDgFg9AlxgqxakAZ5IaFnuEm1AEILZf3zMf_RltI8Hn8cUrQPkmOZnG4RJ_2JWtAyhlRBFmuUcik_z8aH0xP89gPWPr5kdEd8FvMAQ8SvwJsMR8IX0bc3bpRqqgUvdExx8jAQ!/dz/d5/L2dBISEvZ0FBIS9nQSEh/p0/IZ7_419E11C0M8LU10AFRL14H820O2=CZ6_419E11C0M8LU10AFRL14H82001=LA0=Ejavax.servlet.include.path_info!QCPpagesQCPautenticacaoCNHQCPmenuView.xhtml==/#Z7_419E11C0M8LU10AFRL14H820O2">AQUI</a></li>
+                <li>Para consultar alguma pendencia ou irregularidade do veículo clique <a href="https://www.ipva.fazenda.sp.gov.br/IPVANET_Consulta/Consulta.aspx">AQUI</a></li>
+            </ul>
+            
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CertidaoCriminal)
-        </dt>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.usuario.Nome, htmlAttributes: new { @class = "control-label col-md-2 " })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.usuario.Nome, new { htmlAttributes = new { @class = "form-control",
+                           disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.usuario.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.usuario.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.usuario.Cpf, new { htmlAttributes = new { @class = "form-control", disabled="disabled" } })
+                            @Html.ValidationMessageFor(model => model.usuario.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CertidaoCriminal)
-        </dd>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Cnh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Cnh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CertidaoCriminal, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CertidaoCriminal, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CertidaoCriminal, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+            
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (var item in Model.Veiculos)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => item.Placa, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => item.Placa, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => item.Placa, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    @foreach (var item in Model.Veiculos)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => item.Crlv, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => item.Crlv, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => item.Crlv, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCriacao)
-        </dt>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (var item in Model.Veiculos)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => item.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => item.Modelo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => item.Modelo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    @foreach (var item in Model.Veiculos)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => item.Cor, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => item.Cor, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => item.Cor, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DataCriacao)
-        </dd>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (var item in Model.Veiculos)
+                    {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Placa)
-        </dt>
+                        <div class="form-group">
+                            @Html.LabelFor(model => item.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => item.Foto, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                @Html.ValidationMessageFor(model => item.Foto, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FotoComCnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.FotoComCnh, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                            @Html.ValidationMessageFor(model => model.FotoComCnh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row text-center espaco">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="submit" value="CONFIRMAR MOTORISTA" class="btn btn-success" />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="RECUSAR MOTORISTA" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+            
 
-        <dd>
-            @Html.DisplayFor(model => model.Placa)
-        </dd>
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>*@
+        </div>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Crlv)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Crlv)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Modelo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modelo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FotoVeiculo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FotoVeiculo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FotoComCnh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FotoComCnh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Localizacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Localizacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StatusVeiculo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StatusVeiculo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCriacaoVeiculo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataCriacaoVeiculo)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -36,7 +36,17 @@ namespace Xogum.ViewModels.Usuario
 
         [Display(Name = "Foto")]
         public string Foto { get; set; }
-        
+
+        [Display(Name ="Localização")]
+        public string Localizacao { get; set; }
+
+        [Display(Name ="Avaliação")]
+        public int Avaliacao { get; set; }
+
+        [Display(Name ="Data de Nascimento")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DataNascimento { get; set; }
+
         public virtual TipoUsuario TipoUsuario { get; set; }
         public int TipoUsuarioId { get; set; }
     }

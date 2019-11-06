@@ -21,9 +21,6 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
             Property(p => p.CertidaoCriminal)
                 .IsRequired()
                 .HasColumnName("MOT_CERTIDAO_CRIMINAL");
-            Property(p => p.Localizacao)
-                .IsRequired()
-                .HasColumnName("MOT_LOCALIZACAO");
             Property(p => p.FotoComCnh)
                 .IsRequired()
                 .HasColumnName("MOT_FOTO_CNH");
@@ -32,8 +29,8 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .HasColumnName("MOT_STATUS");
             Property(p => p.DataCriacao)
                 .HasColumnName("MOT_DATA_CRIACAO");
-            Property(p => p.Avaliacao)
-                .HasColumnName("MOT_AVALIACAO");
+            Property(p => p.Verificacao)
+                .HasColumnName("MOT_VERIFICACAO");
         }
 
         protected override void ConfigurarChavePrimaria()
