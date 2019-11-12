@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Xogum.AcessoBanco.Entity.Contexto;
 using Xogum.Annotations;
 using Xogum.Dominio;
@@ -93,6 +94,9 @@ namespace Xogum.Controllers
                                         usuario.Cpf = viewModel.Cpf;
                                         usuario.Foto = nomeFoto;
                                         usuario.TipoUsuarioId = 1;
+                                        usuario.Avaliacao = 0;
+                                        usuario.Localizacao = "-";
+                                        usuario.DataNascimento = Convert.ToDateTime(viewModel.DataNascimento);
                                         db.Usuarios.Add(usuario);
 
                                         Motorista motorista = new Motorista();
@@ -101,6 +105,7 @@ namespace Xogum.Controllers
                                         motorista.Status = false;
                                         motorista.DataCriacao = DateTime.Now;
                                         motorista.FotoComCnh = nomeFotoCnh;
+                                        motorista.Verificacao = false;
                                         db.Motoristas.Add(motorista);
 
                                         Veiculo veiculo = new Veiculo();
@@ -303,7 +308,9 @@ namespace Xogum.Controllers
         {
             var motoristasStatus = db.Motoristas
                 .Include(m => m.Usuario)
-                .Where(m => m.Status == false);
+                .Where(m => m.Status == false)
+                .Where(m => m.Verificacao == false);
+
             return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motoristasStatus.ToList()));
         }
         // ALTERAÇÃO DE STATUS DO MOTORISTAS
@@ -325,19 +332,33 @@ namespace Xogum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var loc = motorista.Usuario.Localizacao;
-                var foto = motorista.FotoComCnh;
-
                 db.Entry(motorista).State = EntityState.Modified;
-                motorista.Usuario.Localizacao = "-";
                 motorista.FotoComCnh = "foto";
-                motorista.DataCriacao = DateTime.Now;
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
+
             ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", motorista.UsuarioId);
             return View(motorista);
         }
+
+        public ActionResult Resposta(string mensagem, string email, string assunto)
+        {
+            if (mensagem != "" && assunto != "")
+            {
+                TempData["MSG"] = Funcoes.EnviarEmail(email, assunto, mensagem);
+            }
+            else
+            {
+                TempData["MSG"] = "warning|Preencha todos os campos";
+            }
+            return View();
+
+
+        }
     }
+
+
 }
+

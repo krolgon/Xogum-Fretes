@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Xogum.Annotations;
@@ -59,7 +60,7 @@ namespace Xogum.ViewModels.Usuario
         public int Avaliacao { get; set; }
 
         [Display(Name ="Data de Nascimento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Column(TypeName = "DateTime2")]
         public DateTime DataNascimento { get; set; }
 
         public virtual TipoUsuario TipoUsuario { get; set; }

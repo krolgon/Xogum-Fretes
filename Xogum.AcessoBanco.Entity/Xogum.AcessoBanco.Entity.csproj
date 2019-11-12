@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201911062254055_Alteração.designer.cs">
       <DependentUpon>201911062254055_Alteração.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911112058131_Teste.cs" />
+    <Compile Include="Migrations\201911112058131_Teste.designer.cs">
+      <DependentUpon>201911112058131_Teste.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeConfiguration\MotoristaTypeConfiguration.cs" />
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911062254055_Alteração.resx">
       <DependentUpon>201911062254055_Alteração.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911112058131_Teste.resx">
+      <DependentUpon>201911112058131_Teste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

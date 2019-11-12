@@ -16,57 +16,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.usuario.Email)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Senha)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Telefone)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.usuario.Cpf)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Foto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cnh)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.CertidaoCriminal)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.DataCriacao)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Placa)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Crlv)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Modelo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FotoVeiculo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FotoComCnh)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Localizacao)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.StatusVeiculo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DataCriacaoVeiculo)
-                </th>*@
             <th>
                 Opções
             </th>
@@ -81,57 +36,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.usuario.Email)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Senha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.usuario.Cpf)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.Foto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cnh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CertidaoCriminal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.DataCriacao)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Placa)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Crlv)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Modelo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FotoVeiculo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FotoComCnh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Localizacao)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StatusVeiculo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataCriacaoVeiculo)
-                    </td>*@
+                </td>            
                 <td>
                     @Html.ActionLink("Detalhes", "ValidarMotoristas", new { id = item.Id }) 
                 </td>

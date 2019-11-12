@@ -15,7 +15,6 @@ namespace Xogum.ViewModels.Motorista
         /*Cadastro de Usuário*/
         public UsuarioExibicaoViewModel usuario { get; set; }
 
-
         /*Motorista*/
 
         [Display(Name = "Identificador")]

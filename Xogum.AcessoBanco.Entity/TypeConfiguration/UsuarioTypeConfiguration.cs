@@ -30,7 +30,8 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .HasMaxLength(100)
                 .HasColumnName("USU_EMAIL");
             Property(p => p.DataNascimento)
-                .HasColumnName("USU_DATA_NASCIMENTO");
+                .HasColumnName("USU_DATA_NASCIMENTO")
+                .HasColumnType("date");
             Property(p => p.Senha)
                 .IsRequired()
                 .HasMaxLength(100)

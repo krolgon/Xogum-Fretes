@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Xogum.Annotations;
@@ -45,6 +46,12 @@ namespace Xogum.ViewModels.Motorista
         [Display(Name = "Foto")]
         public string Foto { get; set; }
 
+        [Display(Name = "Data de Nascimento")]
+        public string DataNascimento { get; set; }
+
+        [Display(Name = "Localização")]
+        public string Localização { get; set; }
+
 
         /*Motorista*/
 
@@ -66,6 +73,10 @@ namespace Xogum.ViewModels.Motorista
         [Display(Name="Data de Criação")]
         [Required]
         public DateTime DataCriacao { get; set; }
+
+        [Display(Name = "Verificação")]
+        [Required]
+        public Boolean Verificacao { get; set; }
 
 
         /*Veículo*/
@@ -104,6 +115,7 @@ namespace Xogum.ViewModels.Motorista
         public Boolean StatusVeiculo { get; set; }
 
         [Display(Name = "Data de Criação")]
+        [Column(TypeName = "DateTime2")]
         public DateTime DataCriacaoVeiculo { get; set; }
     }
 }

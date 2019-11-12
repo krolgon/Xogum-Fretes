@@ -26,7 +26,7 @@ namespace Xogum.Controllers
             return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
         }
 
-        [Authorize(Roles = "Cliente")]
+
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
@@ -87,14 +87,9 @@ namespace Xogum.Controllers
                     usuario.TipoUsuarioId = 2;
                     usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
                     db.Usuarios.Add(usuario);
-                    if (db.SaveChanges() > 0)
-                    {
-                        ViewBag.Message = "Your app description page.";
-                        return RedirectToAction("Index", "Home");
-                    }
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
                 }
-
-
             }
             return View(viewModel);
         }
@@ -173,6 +168,11 @@ namespace Xogum.Controllers
 
         //[Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
+        {
+            return View();
+        }
+
+        public ActionResult Suporte()
         {
             return View();
         }

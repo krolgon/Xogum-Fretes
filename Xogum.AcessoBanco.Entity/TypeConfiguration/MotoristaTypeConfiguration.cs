@@ -28,7 +28,8 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
                 .IsRequired()
                 .HasColumnName("MOT_STATUS");
             Property(p => p.DataCriacao)
-                .HasColumnName("MOT_DATA_CRIACAO");
+                .HasColumnName("MOT_DATA_CRIACAO")
+                .HasColumnType("date");
             Property(p => p.Verificacao)
                 .HasColumnName("MOT_VERIFICACAO");
         }
