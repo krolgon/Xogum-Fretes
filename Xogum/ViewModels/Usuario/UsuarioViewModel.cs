@@ -59,7 +59,7 @@ namespace Xogum.ViewModels.Usuario
         public int Avaliacao { get; set; }
 
         [Display(Name ="Data de Nascimento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataNascimento { get; set; }
 
         public virtual TipoUsuario TipoUsuario { get; set; }

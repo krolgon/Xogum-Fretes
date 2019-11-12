@@ -174,7 +174,7 @@ namespace Xogum.Controllers
         //[Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
         {
-            return View();
+            return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
         }
 
 
