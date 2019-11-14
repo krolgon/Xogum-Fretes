@@ -175,8 +175,24 @@ namespace Xogum.Controllers
         public ActionResult Suporte()
         {
             return View();
+
+        }
+        public ActionResult SuporteMail()
+        {
+            return View();
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SuporteMail(string mensagem, string email, string assunto)
+        {
+            if (mensagem != "" && email != "" && assunto != "")
+            {
+                TempData["MSG"] = Funcoes.EnviarEmail(email, assunto, mensagem);
+            }
+            else { TempData["MSG"] = "warning|Preencha todos os campos"; }
+            return View();
+        }
 
         /*============================================================================================*/
         /*===================================ADMINISTRADOR============================================*/

@@ -12,6 +12,35 @@
         </div>
         <div class="col-md-6 text-center">
             <h4>Envie sua dúvida</h4>
+            <h2>Email</h2>
+            @using (@Html.BeginForm("SuporteMail", "Usuarios", FormMethod.Post))
+            {@Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-md-12">
+                        Destinatário: <input name="email" type="text" class="form-control" />
+                    </div>
+                </div><br /> <div class="row">
+                    <div class="col-md-12">
+                        Assunto: <input name="assunto" type="text" class="form-control" />
+                    </div>
+                </div><br />
+                <div class="row">
+                    <div class="col-md-12">
+                        Mensagem: <textarea name="mensagem">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn btn-primary ">
+                            <i class="fa fa-send"></i> Enviar e-mail
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
         </div>
     </div>
 </div>
+
