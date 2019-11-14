@@ -12,6 +12,7 @@ using Xogum.AcessoBanco.Entity.Contexto;
 using Xogum.Annotations;
 using Xogum.Dominio;
 using Xogum.ViewModels.Usuario;
+using Xogum.ViewModels.Motorista;
 
 namespace Xogum.Controllers
 {
@@ -169,7 +170,7 @@ namespace Xogum.Controllers
         //[Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
         {
-            return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
+            return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(db.Motoristas.ToList()));
         }
 
         public ActionResult Suporte()
