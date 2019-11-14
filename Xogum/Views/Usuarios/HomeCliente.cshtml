@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Xogum.ViewModels.Usuario.UsuarioExibicaoViewModel>
+﻿@model IEnumerable<Xogum.ViewModels.Motorista.MotoristaExibicaoViewModel>
 @{
     ViewBag.Title = "HomeCliente";
     Layout = "~/Views/Shared/_LayoutUsuario.cshtml";
@@ -18,7 +18,8 @@
 
 <script>
 
-    function CriarMapa(la, lg) {
+    function CriarMapa(la, lg, motInfo, motId) {
+        // Gera uma div que sera aonde o mapa sera colocado
         document.write("<div id='mapContainer' style='width: 80vw; height: 60vh'></div>");
 
         // definição da chave da api para utilização
@@ -32,10 +33,10 @@
         var defaultLayers = platform.createDefaultLayers();
         var mapContainer = document.getElementById('mapContainer');
 
-        // inicializa o mapa
+        // inicializa um mapa padrão
         var map = new H.Map(mapContainer, defaultLayers.vector.normal.map, {
             zoom: 15,
-            center: { lat: 48.869145, lng: 2.314298 },
+            center: { lat: -22.786000, lng: -45.1711673 },
             pixelRatio: window.devicePixelRatio || 1
         });
 
@@ -43,16 +44,18 @@
         window.addEventListener('resize', () => map.getViewPort().resize());
         var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
-
+        // Cria a UI da api para interações no mapa
         var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+        //Função para criar os icones com as interações
         function addMarkerToGroup(group, coordinate, html) {
             var icon = new H.map.Icon("https://image.flaticon.com/icons/svg/226/226592.svg", { size: { w: 35, h: 35 } }),
                 marker = new H.map.Marker(coordinate, { icon: icon });
-            // add custom data to the marker
             marker.setData(html);
             group.addObject(marker);
         }
-        // gerador de geolocation pelo navegador
+
+        // Componente para gerar a posição de aonde o usuário está no momento
         var geocoderService = platform.getGeocodingService();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition
@@ -71,6 +74,8 @@
                         success => {
                             var { latitude, longitude } = position.coords;
                             console.log(`${latitude} , ${longitude}`);
+                            var marker = new H.map.Marker({ lat: latitude, lng: longitude });
+                            map.addObject(marker);
                         },
                         error => {
                             console.error(error);
@@ -79,10 +84,9 @@
                 })
         }
 
-
         // cria marcadores no mapa do banco
         for (var i = 0; i < la.length; i++) {
-               var group = new H.map.Group();
+            var group = new H.map.Group();
             map.addObject(group);
             group.addEventListener('tap', function (evt) {
                 var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
@@ -90,8 +94,8 @@
                 });
                 ui.addBubble(bubble);
             }, false);
-            addMarkerToGroup(group, { lat: la[i], lng: lg[i] }, '<p><a href="Index">Informação do Motorista</p>');
-            //map.addObject(marker);
+            var html = '<p>' + motInfo[i] + '</p><br><a href="' + motId[i] + '">Veja mais...</a>';
+            addMarkerToGroup(group, { lat: la[i], lng: lg[i] }, html);
         }
     }
 </script>
@@ -99,9 +103,11 @@
 <div class="container">
     <div class="row">
         <script>
-            // cria vetor para armazenar as localizações proximas
+            // cria vetor para armazenar os valores que precisarão para os marcadores do mapa e componentes do mesmo
             var la = [];
             var lg = [];
+            var mot = [];
+            var motId = [];
         </script>
     </div>
     @{ int cont = 1;}
@@ -109,18 +115,32 @@
     {
         <label id='aux_@cont'></label>
         <script>
-            var valores = "@item.Localizacao";
-            valores = valores.split(",");
-            var lat = valores[0];
-            var lng = valores[1];
-            la.push(lat);
-            lg.push(lng);
+            // primeiro é atribuido os valores do banco em variaveis para manipula-las com mais facilidade
+            var tipoUsu = "@item.usuario.TipoUsuarioId";
+            var motVal = "@item.Status";
+            // valida se o usuário é do tipo 1 referente a motorista e se o perfil do motorista é valido pelo ADM
+            if (tipoUsu == 1 && motVal == "True") {
+                // como a localizaçao é 'lat,lng' no banco, foi preciso separa-lo com o split(',') e o valor de cada um
+                // foi colocado em uma variavel para manipular posteriormente
+                var valores = "@item.usuario.Localizacao";
+                valores = valores.split(",");
+                var lat = valores[0];
+                var lng = valores[1];
+                // uma concatenacao de valores para facilitar a hora de gerar o marcador que mostre as informações 
+                var info = "@item.usuario.Nome, Avaliacao: @item.usuario.Avaliacao";
+                var id = "Details/" + "@item.usuario.Id";
+                // insere todos os valores preparados nos vetores citados acima
+                motId.push(id);
+                mot.push(info);
+                la.push(lat);
+                lg.push(lng);
+            }
         </script>
     }
     <div>
     </div>
-
     <div class="col-md-8">
-        <script>CriarMapa(la, lg);</script>
+        <!-- Aqui é aonde é gerado o mapa que foi preparado por script acima 2 -->
+        <script>CriarMapa(la, lg, mot, motId);</script>
     </div>
 </div>
