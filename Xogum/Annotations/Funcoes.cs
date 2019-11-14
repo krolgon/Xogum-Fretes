@@ -12,7 +12,7 @@ namespace Xogum.Annotations
         {
             try
             { //Cria o endereço de email do remetente
-                MailAddress de = new MailAddress("fatecgtaads@gmail.com");
+                MailAddress de = new MailAddress("xogum.fretes@gmail.com");
                 //Cria o endereço de email do destinatário --> 
                 MailAddress para = new MailAddress(emailDestinatario);
                 MailMessage mensagem = new MailMessage(de, para);

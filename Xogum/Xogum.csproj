@@ -154,6 +154,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapper\DominioParaViewModelProfile.cs" />
     <Compile Include="AutoMapper\ViewModelParaDominioProfile.cs" />
+    <Compile Include="Controllers\ContratoesController.cs" />
+    <Compile Include="Controllers\EnderecoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MotoristasController.cs" />
     <Compile Include="Controllers\TipoUsuariosController.cs" />
@@ -410,6 +412,16 @@
     <Content Include="Views\Motoristas\Index.cshtml" />
     <Content Include="Views\Motoristas\ValidarMotoristas.cshtml" />
     <Content Include="Views\Usuarios\Suporte.cshtml" />
+    <Content Include="Views\Enderecoes\Create.cshtml" />
+    <Content Include="Views\Enderecoes\Delete.cshtml" />
+    <Content Include="Views\Enderecoes\Details.cshtml" />
+    <Content Include="Views\Enderecoes\Edit.cshtml" />
+    <Content Include="Views\Enderecoes\Index.cshtml" />
+    <Content Include="Views\Contratoes\Create.cshtml" />
+    <Content Include="Views\Contratoes\Delete.cshtml" />
+    <Content Include="Views\Contratoes\Details.cshtml" />
+    <Content Include="Views\Contratoes\Edit.cshtml" />
+    <Content Include="Views\Contratoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
