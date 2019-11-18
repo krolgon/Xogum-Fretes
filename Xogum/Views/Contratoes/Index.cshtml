@@ -13,28 +13,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Endereco.Descricao)
+            @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nome)
+            @Html.DisplayNameFor(model => model.Avaliacao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Veiculo.Placa)
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Complemento)
+            @Html.DisplayNameFor(model => model.Data)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bairro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cep)
+            @Html.DisplayNameFor(model => model.Ajudante)
         </th>
         <th></th>
     </tr>
@@ -42,28 +33,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Endereco.Descricao)
+            @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+            @Html.DisplayFor(modelItem => item.Avaliacao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Veiculo.Placa)
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Complemento)
+            @Html.DisplayFor(modelItem => item.Data)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Bairro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cep)
+            @Html.DisplayFor(modelItem => item.Ajudante)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

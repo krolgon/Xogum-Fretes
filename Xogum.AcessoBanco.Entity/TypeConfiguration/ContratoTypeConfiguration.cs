@@ -12,27 +12,25 @@ namespace Xogum.AcessoBanco.Entity.TypeConfiguration
         protected override void ConfigurarCamposTabela()
         {
             Property(p => p.Id)
-               .IsRequired()
-               .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
-               .HasColumnName("CON_ID");
-            Property(p => p.Complemento)
-                .HasColumnName("CON_COMPLEMENTO");
-            Property(p => p.Bairro)
                 .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnName("CON_BAIRRO");
-            Property(p => p.Cidade)
+                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
+                .HasColumnName("CON_ID");
+            Property(p => p.Descricao)
                 .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnName("CON_CIDADE");
-            Property(p => p.Estado)
+                .HasMaxLength(1000)
+                .HasColumnName("CON_DESCRICAO");
+            Property(p => p.Avaliacao)
+                .HasColumnName("CON_AVALIACAO");
+            Property(p => p.Status)
                 .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("CON_ESTADO");
-            Property(p => p.Cidade)
+                .HasColumnName("CON_STATUS");
+            Property(p => p.Data)
                 .IsRequired()
-                .HasMaxLength(100)
-                .HasColumnName("CON_CIDADE");
+                .HasColumnName("CON_DATA")
+                .HasColumnType("date");
+            Property(p => p.Ajudante)
+                .HasColumnName("CON_AJUDANTE");
+            
 
     }
 
