@@ -13,7 +13,7 @@ namespace Xogum.AcessoBanco.Entity.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201911140053340_EnderecoContrato"; }
+            get { return "201911182116528_EnderecoContrato"; }
         }
         
         string IMigrationMetadata.Source

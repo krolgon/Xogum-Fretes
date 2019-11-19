@@ -13,19 +13,37 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Descricao)
+            @Html.DisplayNameFor(model => model.Usuario.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Avaliacao)
+            @Html.DisplayNameFor(model => model.Veiculo.Placa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.EnderecoInicial)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data)
+            @Html.DisplayNameFor(model => model.NumeroInicial)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ajudante)
+            @Html.DisplayNameFor(model => model.EnderecoFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroFinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Complemento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cep)
         </th>
         <th></th>
     </tr>
@@ -33,19 +51,37 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
+            @Html.DisplayFor(modelItem => item.Usuario.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Avaliacao)
+            @Html.DisplayFor(modelItem => item.Veiculo.Placa)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.EnderecoInicial)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Data)
+            @Html.DisplayFor(modelItem => item.NumeroInicial)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Ajudante)
+            @Html.DisplayFor(modelItem => item.EnderecoFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroFinal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Complemento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bairro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cep)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
