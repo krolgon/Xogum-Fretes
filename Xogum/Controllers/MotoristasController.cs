@@ -54,7 +54,7 @@ namespace Xogum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastro(MotoristaViewModel viewModel, HttpPostedFileBase arqFoto,
         HttpPostedFileBase arqCnh, HttpPostedFileBase arqCriminal, HttpPostedFileBase arqFotoComCnh,
-        HttpPostedFileBase arqCrlv, HttpPostedFileBase arqVeiculo)
+        HttpPostedFileBase arqCrlv, HttpPostedFileBase arqVeiculo, string local)
         {
             if (ModelState.IsValid)
             {
@@ -178,6 +178,7 @@ namespace Xogum.Controllers
                                         usuario.Telefone = viewModel.Telefone;
                                         usuario.Cpf = viewModel.Cpf;
                                         usuario.Foto = "Sem foto";
+                                        usuario.Localizacao = local;
                                         usuario.TipoUsuarioId = 1;
                                         db.Usuarios.Add(usuario);
 

@@ -55,7 +55,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UsuarioViewModel viewModel, HttpPostedFileBase arq)
+        public ActionResult Create(UsuarioViewModel viewModel, HttpPostedFileBase arq, string local)
         {
             string valor = "";
             if (ModelState.IsValid)
@@ -71,6 +71,7 @@ namespace Xogum.Controllers
                         usuario.Foto = nomearq;
                         usuario.TipoUsuarioId = 2;
                         usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
+                        usuario.Localizacao = local;
                         db.Usuarios.Add(usuario);
                         db.SaveChanges();
                         return RedirectToAction("HomeCliente", "Usuarios");
@@ -87,6 +88,7 @@ namespace Xogum.Controllers
                     usuario.Foto = "Sem foto";
                     usuario.TipoUsuarioId = 2;
                     usuario.Senha = Annotations.Hash.HashTexto(viewModel.Senha, "SHA512");
+                    usuario.Localizacao = local;
                     db.Usuarios.Add(usuario);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");

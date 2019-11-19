@@ -50,7 +50,7 @@ namespace Xogum.ViewModels.Motorista
         public string DataNascimento { get; set; }
 
         [Display(Name = "Localização")]
-        public string Localização { get; set; }
+        public string Localizacao { get; set; }
 
 
         /*Motorista*/
@@ -106,9 +106,6 @@ namespace Xogum.ViewModels.Motorista
         [Display(Name = "Foto com CNH")]
         //[Required(ErrorMessage = "O campo foto é obrigatório")]
         public string FotoComCnh { get; set; }
-
-        [Display(Name = "Localização")]
-        public string Localizacao { get; set; }
 
         [Display(Name = "Status")]
         [Required(ErrorMessage = "O campo status é obrigatório")]
