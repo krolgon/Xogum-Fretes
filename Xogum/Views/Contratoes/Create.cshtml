@@ -6,15 +6,52 @@
 }
 
 <h2>Create</h2>
+<h2>HomeCliente</h2>
 
-@using (Html.BeginForm()) 
+<head>
+
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+
+</head>
+<script>
+    var textoBusca = document.getElementById('')
+    var geocodingParams = { searchText:/*O VALOR AQUI MUDARIA DE ACORDO COM O DIGITADO*/'200SMathildaAve,Sunnyvale,CA' };
+
+    var onResult = function (result) {
+
+        var locations = result.Response.View[0].Result, position;
+        for (i = 0; i < locations.length; i++) {
+            position = {
+                lat: locations[i].Location.DisplayPosition.Latitude,
+                lng: locations[i].Location.DisplayPosition.Longitude
+            };
+        }
+    };
+
+    var geocoder = platform.getGeocodingService();
+
+    geocoder.geocode(geocodingParams, onResult, function (e) { alert(e); });
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Contrato</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+            @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

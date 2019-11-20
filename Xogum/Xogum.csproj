@@ -422,6 +422,7 @@
     <Content Include="Views\Contratoes\Details.cshtml" />
     <Content Include="Views\Contratoes\Edit.cshtml" />
     <Content Include="Views\Contratoes\Index.cshtml" />
+    <Content Include="Views\Motoristas\HomeMotorista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

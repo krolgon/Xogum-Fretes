@@ -19,12 +19,13 @@
           href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
     <div class="container">
         <script>
+            // definição da chave da api para utilização
             var platform = new H.service.Platform({
                 apikey: 'q_elI5myVl5U1fdw7ljnDng2unbifJRBGtOTChlKsFQ',
                 useHTTPS: true,
                 useCIT: true
             });
-
+            // Componente para gerar a posição de aonde o usuário está no momento
             var geocoderService = platform.getGeocodingService();
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition
@@ -40,7 +41,6 @@
                                 var { latitude, longitude } = position.coords;
                                 $(document).ready(function () {
                                     document.getElementById("local").value = latitude + "," + longitude;
-                                    console.log(latitude + "," + longitude);
                                 });
                             },
                             error => {
@@ -51,7 +51,9 @@
             }
         </script>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
         <input type="hidden" id="local" name="local" />
+        
         <div class="espaco">
             <div class="row espaco-form">
                 <div class="col-md-6">
