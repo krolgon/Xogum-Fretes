@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201911182116528_EnderecoContrato.designer.cs">
       <DependentUpon>201911182116528_EnderecoContrato.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911202242475_EnderecoContratoAtualizacao.cs" />
+    <Compile Include="Migrations\201911202242475_EnderecoContratoAtualizacao.designer.cs">
+      <DependentUpon>201911202242475_EnderecoContratoAtualizacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeConfiguration\ContratoTypeConfiguration.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911182116528_EnderecoContrato.resx">
       <DependentUpon>201911182116528_EnderecoContrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911202242475_EnderecoContratoAtualizacao.resx">
+      <DependentUpon>201911202242475_EnderecoContratoAtualizacao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
