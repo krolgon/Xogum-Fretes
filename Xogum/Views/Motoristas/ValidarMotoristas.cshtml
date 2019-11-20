@@ -15,8 +15,8 @@
         <div class="form-horizontal">
             <h4>Locais de Verificação de Autenticidade de Documentação</h4>
             <ul>
-                <li>Para verificar a validade de uma CNH clique <a href="https://www.detran.sp.gov.br/wps/portal/portaldetran/cidadao/habilitacao/servicos/autenticacaoCNH/!ut/p/z1/pZHLDoIwEEU_qXdoo-2yIsijxIgi2I1hZZooujB-v8DORCvG2U1zznRyh1nWMNu1D3dq7-7atee-P9jZUZCKiEIU0lQEHZeGRCIDgFg9AlxgqxakAZ5IaFnuEm1AEILZf3zMf_RltI8Hn8cUrQPkmOZnG4RJ_2JWtAyhlRBFmuUcik_z8aH0xP89gPWPr5kdEd8FvMAQ8SvwJsMR8IX0bc3bpRqqgUvdExx8jAQ!/dz/d5/L2dBISEvZ0FBIS9nQSEh/p0/IZ7_419E11C0M8LU10AFRL14H820O2=CZ6_419E11C0M8LU10AFRL14H82001=LA0=Ejavax.servlet.include.path_info!QCPpagesQCPautenticacaoCNHQCPmenuView.xhtml==/#Z7_419E11C0M8LU10AFRL14H820O2">AQUI</a></li>
-                <li>Para consultar alguma pendencia ou irregularidade do veículo clique <a href="https://www.ipva.fazenda.sp.gov.br/IPVANET_Consulta/Consulta.aspx">AQUI</a></li>
+                <li>Para verificar a validade de uma CNH clique <a href="https://www.detran.sp.gov.br/wps/portal/portaldetran/cidadao/habilitacao/servicos/autenticacaoCNH/!ut/p/z1/pZHLDoIwEEU_qXdoo-2yIsijxIgi2I1hZZooujB-v8DORCvG2U1zznRyh1nWMNu1D3dq7-7atee-P9jZUZCKiEIU0lQEHZeGRCIDgFg9AlxgqxakAZ5IaFnuEm1AEILZf3zMf_RltI8Hn8cUrQPkmOZnG4RJ_2JWtAyhlRBFmuUcik_z8aH0xP89gPWPr5kdEd8FvMAQ8SvwJsMR8IX0bc3bpRqqgUvdExx8jAQ!/dz/d5/L2dBISEvZ0FBIS9nQSEh/p0/IZ7_419E11C0M8LU10AFRL14H820O2=CZ6_419E11C0M8LU10AFRL14H82001=LA0=Ejavax.servlet.include.path_info!QCPpagesQCPautenticacaoCNHQCPmenuView.xhtml==/#Z7_419E11C0M8LU10AFRL14H820O2" target="_blank">AQUI</a></li>
+                <li>Para consultar alguma pendencia ou irregularidade do veículo clique <a href="https://www.ipva.fazenda.sp.gov.br/IPVANET_Consulta/Consulta.aspx" target="_blank">AQUI</a></li>
             </ul>
 
             <hr />
@@ -46,6 +46,15 @@
             </div>
 
             <div class="row">
+                @*<div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cnh, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cnh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Cnh, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -154,7 +163,8 @@
                         <button type="submit" name="button" value="aceitar" class="btn btn-success">Confirmar Motorista</button>
                     </div>
                     <div class="col-md-6">
-                        <input type="button" value="Recusar Motorista" class="btn btn-danger" onclick="Mudarestado('minhaDiv')"/>
+                        <input type="button" value="Recusar Motorista" class="btn btn-danger" onclick="Mudarestado('minhaDiv')" />
+
                     </div>
                 </div>
             </div>
@@ -164,51 +174,22 @@
     }
     @using (Html.BeginForm("Resposta", "Motoristas", FormMethod.Post))
     {
-    <div id="minhaDiv" class="text-center" style="display:none" ;>
-        <h4>Motivo da Recusa do Cadastro</h4>
-        <div class="container">
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
-
-            <div class="form-horizontal">
-                <div class="row">
-                    <div class="col-md-6">
-                        Destinatário:  @Html.EditorFor(model => model.usuario.Email, new
-                                  {
-                                      htmlAttributes = new
-                                      {
-                                          @class = "form-control",
-                                          disabled = "disabled"
-                                          
-                                      }
-                                  })
-                    </div>
-                    <div class="col-md-6">
-                        Assunto: <input name="assunto" type="text" id="teste" class="form-control" />
-                    </div>
+        <div id="minhaDiv" class="text-center" style="display:none" ;>
+            <h4>Motivo da Recusa do Cadastro</h4>
+            <div class="container">
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            Destinatário: <input name="email" type="text" class="form-control" />
+                            @*@Html.EditorFor(model => model.usuario.Email, new { htmlAttributes = new { @class = "form-control",
+                           disabled = "disabled", name="email" } })*@
+                        </div>
+                    </div><br /> <div class="row"> <div class="col-md-12"> Assunto: <input name="assunto" type="text" class="form-control" /> </div> </div><br /> <div class="row"> <div class="col-md-12"> Mensagem: <textarea name="mensagem"></textarea> </div> </div> <div class="row"> <div class="col-md-12 text-center"> <button type="submit" class="btn btn-primary "> <i class="fa fa-send"></i> Enviar e-mail </button> </div> </div>
                 </div>
-                <br />
 
-                <br />
-                <div class="row">
-                    <div class="col-md-12">
-                        Mensagem: <textarea class="form-control" required="required"></textarea>
-                    </div>
-                </div> <div class="row">
-                    <br />
-                    <br />
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-send"></i> Enviar e-mail
-                        </button>
-                        <br />
-                        <br />
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
     }
 
     <script type="text/javascript">

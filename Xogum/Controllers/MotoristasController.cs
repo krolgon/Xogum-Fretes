@@ -308,19 +308,22 @@ namespace Xogum.Controllers
         {
             var motoristasStatus = db.Motoristas
                 .Include(m => m.Usuario)
-                .Where(m => m.Status == false)
                 .Where(m => m.Verificacao == false);
 
             return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motoristasStatus.ToList()));
         }
         // ALTERAÇÃO DE STATUS DO MOTORISTAS
-        public ActionResult ValidarMotoristas(int? id)
+        public ActionResult ValidarMotoristas(int? id, [Bind(Include = "Id,Cnh,CertidaoCriminal,Status,Cnh,Localizacao, UsuarioId ")] Motorista motorista)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var x = db.Motoristas.Where(v => v.Id == id).ToList().FirstOrDefault();
+            Motorista mot = db.Motoristas.Find(motorista.Id);
+            mot.Verificacao = true;
+            db.Entry(mot).State = EntityState.Modified;
+            db.SaveChanges();
             //MotoristaExibicaoViewModel mv = new MotoristaExibicaoViewModel();
             //mv.Cnh = x.Veiculos.FirstOrDefault().Placa;
             return View(Mapper.Map<Motorista, MotoristaExibicaoViewModel>(x));
@@ -332,28 +335,34 @@ namespace Xogum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(motorista).State = EntityState.Modified;
-                motorista.FotoComCnh = "foto";
+                Motorista mot = db.Motoristas.Find(motorista.Id);
+                mot.Status = true;
+                mot.Verificacao = true;
+                db.Entry(mot).State = EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("HomeAdministrador", "Usuarios");
             }
+            
 
             ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", motorista.UsuarioId);
             return View(motorista);
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Resposta(string mensagem, string email, string assunto)
         {
-            if (mensagem != "" && assunto != "")
+            if (mensagem != "" && email != "" && assunto != "")
             {
                 TempData["MSG"] = Funcoes.EnviarEmail(email, assunto, mensagem);
+               
             }
             else
             {
                 TempData["MSG"] = "warning|Preencha todos os campos";
             }
-            return View();
+            return RedirectToAction("HomeAdministrador", "Usuarios");
 
 
         }

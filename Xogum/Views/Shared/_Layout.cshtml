@@ -113,26 +113,26 @@
                 toastr["@TempData["MSG"].ToString().Split('|')[0]"]("@Html.Raw(TempData["MSG"].ToString().Split('|')[1])", titulo)
             });
         </script>
-
-        <script type="text/javascript">
-            tinyMCE.init(
-                {
-                    mode: "textareas",
-                    height: 300,
-                    menubar: false,
-                    plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
-                    ],
-                    toolbar:
-                        'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                    content_css: [
-                        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                        '//www.tiny.cloud/css/codepen.min.css'
-                    ]
-                });</script>
     }
+    <script type="text/javascript">
+        tinyMCE.init(
+            {
+                mode: "textareas",
+                height: 300,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                    'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tiny.cloud/css/codepen.min.css'
+                ]
+            });
+    </script>
 
 </body>
 </html>
