@@ -91,7 +91,7 @@ namespace Xogum.Controllers
                     usuario.Localizacao = local;
                     db.Usuarios.Add(usuario);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("HomeCliente", "Usuarios");
                 }
             }
             return View(viewModel);
