@@ -18,8 +18,7 @@ namespace Xogum.Controllers
         // GET: Enderecoes
         public ActionResult Index()
         {
-            var enderecos = db.Enderecos.Include(e => e.Usuario).Include(e => e.Veiculo);
-            return View(enderecos.ToList());
+            return View(db.Enderecos.ToList());
         }
 
         // GET: Enderecoes/Details/5
@@ -40,8 +39,6 @@ namespace Xogum.Controllers
         // GET: Enderecoes/Create
         public ActionResult Create()
         {
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome");
-            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa");
             return View();
         }
 
@@ -50,7 +47,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EnderecoInicial,NumeroInicial,EnderecoFinal,NumeroFinal,Complemento,Bairro,Cidade,Estado,Cep,UsuarioId,VeiculoId")] Endereco endereco)
+        public ActionResult Create([Bind(Include = "Id,EnderecoFrete,Numero,Complemento,Bairro,Cidade,Estado,Cep")] Endereco endereco)
         {
             if (ModelState.IsValid)
             {
@@ -59,8 +56,6 @@ namespace Xogum.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", endereco.UsuarioId);
-            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", endereco.VeiculoId);
             return View(endereco);
         }
 
@@ -76,8 +71,6 @@ namespace Xogum.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", endereco.UsuarioId);
-            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", endereco.VeiculoId);
             return View(endereco);
         }
 
@@ -86,7 +79,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EnderecoInicial,NumeroInicial,EnderecoFinal,NumeroFinal,Complemento,Bairro,Cidade,Estado,Cep,UsuarioId,VeiculoId")] Endereco endereco)
+        public ActionResult Edit([Bind(Include = "Id,EnderecoFrete,Numero,Complemento,Bairro,Cidade,Estado,Cep")] Endereco endereco)
         {
             if (ModelState.IsValid)
             {
@@ -94,8 +87,6 @@ namespace Xogum.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", endereco.UsuarioId);
-            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", endereco.VeiculoId);
             return View(endereco);
         }
 
