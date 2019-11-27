@@ -47,7 +47,7 @@ namespace Xogum.Controllers
                 if (ticket.IsPersistent) cookie.Expires = ticket.Expiration;
                 Response.Cookies.Add(cookie);
                 if ((String.IsNullOrEmpty(ReturnUrl)) && (permissoes == "Administrador"))
-                    return RedirectToAction("HomeAdministrador", "Usuario");
+                    return RedirectToAction("HomeAdministrador", "Usuarios");
                 if ((String.IsNullOrEmpty(ReturnUrl)) && (permissoes == "Cliente"))
                     return RedirectToAction("HomeCliente", "Usuarios");
                 if ((String.IsNullOrEmpty(ReturnUrl)) && (permissoes == "Motorista"))

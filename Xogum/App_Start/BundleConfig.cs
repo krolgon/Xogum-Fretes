@@ -28,6 +28,15 @@ namespace Xogum
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
                       "~/Content/toastr.min.css"));
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+            //~/Scripts/inputmask/dependencyLibs/inputmask.dependencyLib.js",  //if not using jquery
+            "~/Scripts/inputmask/inputmask.js",
+            "~/Scripts/inputmask/jquery.inputmask.js",
+            "~/Scripts/inputmask/inputmask.extensions.js",
+            "~/Scripts/inputmask/inputmask.date.extensions.js",
+            //and other extensions you want to include
+            "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
+
         }
     }
 }

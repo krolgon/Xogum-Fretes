@@ -18,7 +18,8 @@ namespace Xogum.Controllers
         // GET: Contratoes
         public ActionResult Index()
         {
-            return View(db.Contratos.ToList());
+            var contratos = db.Contratos.Include(c => c.Endereco).Include(c => c.Motorista).Include(c => c.Usuario).Include(c => c.Veiculo);
+            return View(contratos.ToList());
         }
 
         // GET: Contratoes/Details/5
@@ -39,6 +40,10 @@ namespace Xogum.Controllers
         // GET: Contratoes/Create
         public ActionResult Create()
         {
+            ViewBag.EnderecoId = new SelectList(db.Enderecos, "Id", "EnderecoFrete");
+            ViewBag.MotoristaId = new SelectList(db.Motoristas, "Id", "Cnh");
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome");
+            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa");
             return View();
         }
 
@@ -47,7 +52,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Descricao,Avaliacao,Status,Data,Ajudante")] Contrato contrato)
+        public ActionResult Create([Bind(Include = "Id,Descricao,Avaliacao,Status,Data,Ajudante,UsuarioId,VeiculoId,MotoristaId,EnderecoId")] Contrato contrato)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +61,10 @@ namespace Xogum.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.EnderecoId = new SelectList(db.Enderecos, "Id", "EnderecoFrete", contrato.EnderecoId);
+            ViewBag.MotoristaId = new SelectList(db.Motoristas, "Id", "Cnh", contrato.MotoristaId);
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", contrato.UsuarioId);
+            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", contrato.VeiculoId);
             return View(contrato);
         }
 
@@ -71,6 +80,10 @@ namespace Xogum.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.EnderecoId = new SelectList(db.Enderecos, "Id", "EnderecoFrete", contrato.EnderecoId);
+            ViewBag.MotoristaId = new SelectList(db.Motoristas, "Id", "Cnh", contrato.MotoristaId);
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", contrato.UsuarioId);
+            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", contrato.VeiculoId);
             return View(contrato);
         }
 
@@ -79,7 +92,7 @@ namespace Xogum.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Avaliacao,Status,Data,Ajudante")] Contrato contrato)
+        public ActionResult Edit([Bind(Include = "Id,Descricao,Avaliacao,Status,Data,Ajudante,UsuarioId,VeiculoId,MotoristaId,EnderecoId")] Contrato contrato)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +100,10 @@ namespace Xogum.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.EnderecoId = new SelectList(db.Enderecos, "Id", "EnderecoFrete", contrato.EnderecoId);
+            ViewBag.MotoristaId = new SelectList(db.Motoristas, "Id", "Cnh", contrato.MotoristaId);
+            ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", contrato.UsuarioId);
+            ViewBag.VeiculoId = new SelectList(db.Veiculos, "Id", "Placa", contrato.VeiculoId);
             return View(contrato);
         }
 

@@ -13,6 +13,18 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Endereco.EnderecoFrete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Motorista.Cnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Veiculo.Placa)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
         <th>
@@ -32,6 +44,18 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco.EnderecoFrete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Motorista.Cnh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veiculo.Placa)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>

@@ -22,6 +22,7 @@ namespace Xogum.Controllers
         private XogumDbContexto db = new XogumDbContexto();
 
         // GET: Motoristas
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var motoristas = db.Motoristas.Include(m => m.Usuario);
@@ -29,6 +30,7 @@ namespace Xogum.Controllers
         }
 
         // GET: Motoristas/Details/5
+        [Authorize(Roles = "Motorista")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -56,6 +58,7 @@ namespace Xogum.Controllers
         HttpPostedFileBase arqCnh, HttpPostedFileBase arqCriminal, HttpPostedFileBase arqFotoComCnh,
         HttpPostedFileBase arqCrlv, HttpPostedFileBase arqVeiculo, string local)
         {
+            
             if (ModelState.IsValid)
             {
                 Upload.CriarDiretorio();
@@ -234,7 +237,7 @@ namespace Xogum.Controllers
                 return View(viewModel);
             }
         }
-
+        [Authorize(Roles = "Motorista")]
         // GET: Motoristas/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -305,6 +308,7 @@ namespace Xogum.Controllers
         }
 
         //LISTAR MOTORISTAS INATIVOS
+        [Authorize(Roles = "Administrador")]
         public ActionResult MotoristasStatus()
         {
             var motoristasStatus = db.Motoristas
@@ -314,6 +318,7 @@ namespace Xogum.Controllers
             return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(motoristasStatus.ToList()));
         }
         // ALTERAÇÃO DE STATUS DO MOTORISTAS
+        [Authorize(Roles = "Administrador")]
         public ActionResult ValidarMotoristas(int? id, [Bind(Include = "Id,Cnh,CertidaoCriminal,Status,Cnh,Localizacao, UsuarioId ")] Motorista motorista)
         {
             if (id == null)
@@ -330,6 +335,7 @@ namespace Xogum.Controllers
             return View(Mapper.Map<Motorista, MotoristaExibicaoViewModel>(x));
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ValidarMotorista([Bind(Include = "Id,Cnh,CertidaoCriminal,Status,Cnh,Localizacao, UsuarioId ")] Motorista motorista)
@@ -344,7 +350,7 @@ namespace Xogum.Controllers
 
                 return RedirectToAction("HomeAdministrador", "Usuarios");
             }
-            
+
 
             ViewBag.UsuarioId = new SelectList(db.Usuarios, "Id", "Nome", motorista.UsuarioId);
             return View(motorista);
@@ -357,7 +363,7 @@ namespace Xogum.Controllers
             if (mensagem != "" && email != "" && assunto != "")
             {
                 TempData["MSG"] = Funcoes.EnviarEmail(email, assunto, mensagem);
-               
+
             }
             else
             {
@@ -365,10 +371,12 @@ namespace Xogum.Controllers
             }
             return RedirectToAction("HomeAdministrador", "Usuarios");
 
-
+        }
+        [Authorize(Roles = "Motorista")]
+        public ActionResult HomeMotorista()
+        {
+            return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(db.Motoristas.ToList()));
         }
     }
-
-
 }
 

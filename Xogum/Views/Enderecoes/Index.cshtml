@@ -13,22 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nome)
+            @Html.DisplayNameFor(model => model.EnderecoFrete)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Veiculo.Placa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnderecoInicial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroInicial)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnderecoFinal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroFinal)
+            @Html.DisplayNameFor(model => model.Numero)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Complemento)
@@ -51,22 +39,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nome)
+            @Html.DisplayFor(modelItem => item.EnderecoFrete)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Veiculo.Placa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnderecoInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnderecoFinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroFinal)
+            @Html.DisplayFor(modelItem => item.Numero)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Complemento)

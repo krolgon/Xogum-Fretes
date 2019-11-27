@@ -21,13 +21,13 @@ namespace Xogum.Controllers
         private XogumDbContexto db = new XogumDbContexto();
 
         // GET: Usuarios
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             return View(Mapper.Map<List<Usuario>, List<UsuarioExibicaoViewModel>>(db.Usuarios.ToList()));
         }
 
-
+        [Authorize(Roles = "Cliente")]
         // GET: Usuarios/Details/5
         public ActionResult Details(int? id)
         {
@@ -97,7 +97,7 @@ namespace Xogum.Controllers
             return View(viewModel);
         }
 
-        //[Authorize(Roles = "Cliente")]
+        [Authorize(Roles = "Cliente")]
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -116,7 +116,7 @@ namespace Xogum.Controllers
         // POST: Usuarios/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize(Roles = "Cliente")]
+        [Authorize(Roles = "Cliente")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Email,Senha,Telefone,Cpf,Foto,TipoUsuarioId")] UsuarioViewModel viewModel)
@@ -169,17 +169,19 @@ namespace Xogum.Controllers
             base.Dispose(disposing);
         }
 
-        //[Authorize(Roles = "Cliente")]
+        [Authorize(Roles = "Cliente")]
         public ActionResult HomeCliente()
         {
             return View(Mapper.Map<List<Motorista>, List<MotoristaExibicaoViewModel>>(db.Motoristas.ToList()));
         }
 
+        [Authorize(Roles = "Cliente")]
         public ActionResult Suporte()
         {
             return View();
 
         }
+        [Authorize(Roles = "Cliente")]
         public ActionResult SuporteMail()
         {
             return View();
@@ -200,7 +202,7 @@ namespace Xogum.Controllers
         /*============================================================================================*/
         /*===================================ADMINISTRADOR============================================*/
         /*============================================================================================*/
-
+        [Authorize(Roles = "Administrador")]
         public ActionResult HomeAdministrador()
         {
             return View();
