@@ -1,37 +1,384 @@
 ﻿@model Xogum.Dominio.Contrato
 
 @{
-    ViewBag.Title = "Create";
+    /**/
+
+    ViewBag.Title = "Requisição de Serviços";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1568114142" />
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+@*<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.4.4.min.js"></script>*@
+<h2>Primeiro: escolha o local de partida</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Contrato</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <hr />
+    <div class="container">
+        <div class="row">
+            <p>Digite o endreço:</p>
+            <div id="panel" class="col-md-6"></div>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div id="map" style="width: 40vw; height: 60vh"></div>
+        </div>
+    </div>
+    <script type="text/javascript" charset="UTF-8">
+
+        var AUTOCOMPLETION_URL = 'https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+            ajaxRequest = new XMLHttpRequest(),
+            query = '';
+
+        function autoCompleteListener(textBox, event) {
+
+            if (query != textBox.value) {
+                if (textBox.value.length >= 1) {
+
+                    var params = '?' +
+                        'query=' + encodeURIComponent(textBox.value) +   // The search text which is the basis of the query
+                        '&beginHighlight=' + encodeURIComponent('<mark>') + //  Mark the beginning of the match in a token.
+                        '&endHighlight=' + encodeURIComponent('</mark>') + //  Mark the end of the match in a token.
+                        '&maxresults=5' +  // The upper limit the for number of suggestions to be included
+                        // in the response.  Default is set to 5.
+                        '&app_id=' + APPLICATION_ID +
+                        '&app_code=' + APPLICATION_CODE;
+                    ajaxRequest.open('GET', AUTOCOMPLETION_URL + params);
+                    ajaxRequest.send();
+                }
+            }
+            query = textBox.value;
+        }
+
+        function onAutoCompleteSuccess() {
+
+            clearOldSuggestions();
+            addSuggestionsToPanel(this.response);  // In this context, 'this' means the XMLHttpRequest itself.
+            addSuggestionsToMap(this.response);
+        }
+
+        function onAutoCompleteFailed() {
+            alert('Ooops!');
+        }
+
+        // Attach the event listeners to the XMLHttpRequest object
+        ajaxRequest.addEventListener("load", onAutoCompleteSuccess);
+        ajaxRequest.addEventListener("error", onAutoCompleteFailed);
+        ajaxRequest.responseType = "json";
+
+        // set up containers for the map  + panel
+        var mapContainer = document.getElementById('map'),
+            suggestionsContainer = document.getElementById('panel');
+
+        //Step 1: initialize communication with the platform
+        var APPLICATION_ID = 'cZLw9dqojvmpo6e4EYoC',
+            APPLICATION_CODE = '7EsTBefhQwWCbeg9cDJLDw';
+
+        var platform = new H.service.Platform({
+            app_id: APPLICATION_ID,
+            app_code: APPLICATION_CODE,
+            useCIT: false,
+            useHTTPS: true
+        });
+        var defaultLayers = platform.createDefaultLayers();
+        var geocoder = platform.getGeocodingService();
+        var group = new H.map.Group();
+
+        group.addEventListener('tap', function (evt) {
+            map.setCenter(evt.target.getPosition());
+            openBubble(
+                evt.target.getPosition(), evt.target.getData());
+        }, false);
+
+        var map = new H.Map(mapContainer,
+            defaultLayers.normal.map, {
+                center: { lat: -22.786000, lng: -45.1711673 },
+                zoom: 10
+            });
+
+        map.addObject(group);
+
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+        var bubble;
+
+        function openBubble(position, text) {
+            if (!bubble) {
+                bubble = new H.ui.InfoBubble(
+                    position,
+                    // The FO property holds the province name.
+                    { content: '<small>' + text + '</small>' });
+                ui.addBubble(bubble);
+            } else {
+                bubble.setPosition(position);
+                bubble.setContent('<small>' + text + '</small>');
+                bubble.open();
+            }
+        }
+        function addSuggestionsToMap(response) {
+
+            var onGeocodeSuccess = function (result) {
+                var marker,
+                    locations = result.Response.View[0].Result,
+                    i;
+
+                // Add a marker for each location found
+                for (i = 0; i < locations.length; i++) {
+                    marker = new H.map.Marker({
+                        lat: locations[i].Location.DisplayPosition.Latitude,
+                        lng: locations[i].Location.DisplayPosition.Longitude
+                    });
+                    marker.setData(locations[i].Location.Address.Label);
+                    group.addObject(marker);
+                }
+
+                map.setViewBounds(group.getBounds());
+                if (group.getObjects().length < 2) {
+                    map.setZoom(15);
+                }
+            },
+                onGeocodeError = function (error) {
+                    alert('Ooops!');
+                },
+                geocodeByLocationId = function (locationId) {
+                    geocodingParameters = {
+                        locationId: locationId
+                    };
+
+                    geocoder.geocode(
+                        geocodingParameters,
+                        onGeocodeSuccess,
+                        onGeocodeError
+                    );
+                }
+
+            response.suggestions.forEach(function (item, index, array) {
+                geocodeByLocationId(item.locationId);
+            });
+        }
+
+        function clearOldSuggestions() {
+            group.removeAll();
+            if (bubble) {
+                bubble.close();
+            }
+        }
+
+        function addSuggestionsToPanel(response) {
+            var suggestions = document.getElementById('suggestions');
+            suggestions.innerHTML = JSON.stringify(response, null, ' ');
+        }
+
+
+
+        //var content = '<strong style="font-size: large;">' + 'Aonde deseja ir?' + '</strong></br>';
+
+        var content = '<br/><input type="text" class="form-control" id="auto-complete" onkeyup="return autoCompleteListener(this, event);"><br/>';
+        //content += '<br/><strong>Response:</strong><br/>';
+        content += '<div hidden ><pre><code  id="suggestions">' + '{}' + '</code></pre></div>';
+
+        suggestionsContainer.innerHTML = content;
+    </script>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.Endereco.EnderecoFrete, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.EnderecoFrete, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.EnderecoFrete, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.EnderecoFrete, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.EnderecoFrete, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.EnderecoFrete, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="">
+                @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Endereco.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*
+        <div class="container">
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.EnderecoFrete, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.EnderecoFrete, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.EnderecoFrete, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.EnderecoFrete, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.EnderecoFrete, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.EnderecoFrete, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="">
+                    @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Bairro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Cidade, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Estado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Estado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Endereco.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Endereco.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Endereco.Complemento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    *@
+    @*<div class="form-group">
             @Html.LabelFor(model => model.Avaliacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Avaliacao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Avaliacao, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
@@ -39,64 +386,120 @@
                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.Ajudante, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Ajudante, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Ajudante, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.UsuarioId, "UsuarioId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("UsuarioId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UsuarioId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.VeiculoId, "VeiculoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("VeiculoId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.VeiculoId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.MotoristaId, "MotoristaId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("MotoristaId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MotoristaId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+    @*<div class="form-group">
             @Html.LabelFor(model => model.EnderecoId, "EnderecoId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("EnderecoId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EnderecoId, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" v-model="info" @input="autocomplete()">
+        {{info}}
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            mounted() {
+                this.autocomplete()
+            },
+            data() {
+                return {
+                    info: ''
+                }
+            },
+            methods: {
+                autocomplete() {
+                    var params = '?' +
+                        'query=' + encodeURIComponent(this.info) +
+                        // The search text which is the basis of the query
+                        '&beginHighlight=' + encodeURIComponent('<mark>') +
+                        //  Mark the beginning of the match in a token.
+                        '&endHighlight=' + encodeURIComponent('</mark>') +
+                        //  Mark the end of the match in a token.
+                        '&maxresults=5' + // The upper limit the for number of suggestions to be included
+                        // in the response.  Default is set to 5.
+                        '&app_id=' + 'devportal-demo-20180625' +
+                        '&app_code=' + '9v2BkviRwi9Ot26kp2IysQ';
+
+                    axios.defaults.headers.common['X-Auth-Token'] = 'devportal-demo-20180625'
+
+                    axios.get('https://developer.here.com/api-explorer/rest/geocoding_suggestions' + params, {
+
+                    }).then(response => {
+                        console.log(response)
+                    }).catch(e => console.log(e))
+                }
+            }
+        })
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+
+</html>

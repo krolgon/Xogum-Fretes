@@ -70,7 +70,7 @@
                         },
                         success => {
                             var { latitude, longitude } = position.coords;
-                            console.log(`${latitude} , ${longitude}`);
+                            //console.log(`${latitude} , ${longitude}`);
                             var marker = new H.map.Marker({ lat: latitude, lng: longitude });
                             map.addObject(marker);
                         },
